@@ -1,0 +1,1109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Knowledge Base — Hybrid RAG</title>
+<style>
+/* ============================================================
+   Design tokens
+   ============================================================ */
+:root {
+  --bg:            #f6f7f9;
+  --surface:       #ffffff;
+  --surface-2:     #f9fafb;
+  --surface-3:     #f2f4f7;
+  --border:        #e4e7ec;
+  --border-strong: #d0d5dd;
+
+  --text:          #101828;
+  --text-2:        #475467;
+  --text-3:        #98a2b3;
+
+  --accent:        #4f46e5;
+  --accent-hover:  #4338ca;
+  --accent-soft:   #eef2ff;
+  --accent-border: #c7d2fe;
+
+  --success:       #059669;
+  --success-soft:  #ecfdf5;
+  --warn:          #b54708;
+  --warn-soft:     #fffaeb;
+  --warn-border:   #fedf89;
+  --danger:        #d92d20;
+  --danger-soft:   #fef3f2;
+
+  --radius-sm: 6px;
+  --radius:    10px;
+  --radius-lg: 14px;
+
+  --shadow-xs: 0 1px 2px rgba(16,24,40,.05);
+  --shadow-sm: 0 1px 3px rgba(16,24,40,.10), 0 1px 2px rgba(16,24,40,.06);
+  --shadow-md: 0 4px 8px -2px rgba(16,24,40,.10), 0 2px 4px -2px rgba(16,24,40,.06);
+  --shadow-lg: 0 12px 16px -4px rgba(16,24,40,.08), 0 4px 6px -2px rgba(16,24,40,.03);
+
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:            #0c0e12;
+    --surface:       #15181e;
+    --surface-2:     #1a1e26;
+    --surface-3:     #22262f;
+    --border:        #262b34;
+    --border-strong: #343a45;
+
+    --text:          #f5f6f7;
+    --text-2:        #a3aab8;
+    --text-3:        #6b7280;
+
+    --accent:        #7c74ff;
+    --accent-hover:  #948dff;
+    --accent-soft:   #1e1b4b;
+    --accent-border: #3730a3;
+
+    --success:       #34d399;
+    --success-soft:  #052e22;
+    --warn:          #fdb022;
+    --warn-soft:     #2b1d05;
+    --warn-border:   #5c3d09;
+    --danger:        #f97066;
+    --danger-soft:   #2d1210;
+
+    --shadow-xs: 0 1px 2px rgba(0,0,0,.30);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,.40);
+    --shadow-md: 0 4px 8px -2px rgba(0,0,0,.45);
+    --shadow-lg: 0 12px 16px -4px rgba(0,0,0,.50);
+  }
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================
+   Layout
+   ============================================================ */
+.app {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.sidebar {
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* ============================================================
+   Brand / headers
+   ============================================================ */
+.brand {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.brand-row { display: flex; align-items: center; gap: 10px; }
+
+.brand-mark {
+  width: 30px; height: 30px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--accent), #8b5cf6);
+  display: grid; place-items: center;
+  color: #fff; font-weight: 700; font-size: 14px;
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+}
+
+.brand-title { font-size: 14px; font-weight: 650; letter-spacing: -.01em; }
+.brand-sub   { font-size: 11.5px; color: var(--text-3); margin-top: 1px; }
+
+.section { padding: 18px 20px; border-bottom: 1px solid var(--border); }
+
+.section-title {
+  font-size: 10.5px;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: var(--text-3);
+  margin: 0 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ============================================================
+   Upload dropzone
+   ============================================================ */
+.dropzone {
+  border: 1.5px dashed var(--border-strong);
+  border-radius: var(--radius);
+  padding: 22px 16px;
+  text-align: center;
+  cursor: pointer;
+  background: var(--surface-2);
+  transition: border-color .15s, background .15s, transform .15s;
+}
+.dropzone:hover { border-color: var(--accent); background: var(--accent-soft); }
+.dropzone.dragging {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  transform: scale(1.015);
+}
+.dropzone.busy { pointer-events: none; opacity: .65; }
+
+.dropzone-icon { font-size: 20px; opacity: .75; }
+.dropzone-text { font-size: 13px; font-weight: 550; margin-top: 6px; }
+.dropzone-hint { font-size: 11.5px; color: var(--text-3); margin-top: 2px; }
+
+/* ============================================================
+   Document list
+   ============================================================ */
+.doc {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: var(--radius-sm);
+  transition: background .12s;
+}
+.doc:hover { background: var(--surface-3); }
+.doc + .doc { margin-top: 2px; }
+
+.doc-icon {
+  width: 26px; height: 26px;
+  border-radius: 6px;
+  background: var(--surface-3);
+  display: grid; place-items: center;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.doc-body { min-width: 0; flex: 1; }
+.doc-name {
+  font-size: 12.5px; font-weight: 550;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.doc-meta { font-size: 11px; color: var(--text-3); }
+
+.doc-delete {
+  opacity: 0;
+  border: none; background: none; cursor: pointer;
+  color: var(--text-3); font-size: 15px; line-height: 1;
+  padding: 4px 6px; border-radius: 5px;
+  transition: opacity .12s, color .12s, background .12s;
+}
+.doc:hover .doc-delete { opacity: 1; }
+.doc-delete:hover { color: var(--danger); background: var(--danger-soft); }
+
+.empty {
+  font-size: 12.5px; color: var(--text-3);
+  text-align: center; padding: 14px 8px;
+}
+
+/* ============================================================
+   Controls
+   ============================================================ */
+.control + .control { margin-top: 18px; }
+
+.control-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  margin-bottom: 7px;
+}
+.control-label { font-size: 12.5px; font-weight: 550; }
+.control-value {
+  font-size: 11.5px; font-family: var(--mono);
+  color: var(--accent); font-weight: 600;
+}
+
+input[type="range"] {
+  width: 100%; height: 4px;
+  -webkit-appearance: none; appearance: none;
+  background: var(--surface-3);
+  border-radius: 999px;
+  outline: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 15px; height: 15px; border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--surface);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 15px; height: 15px; border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--surface);
+  cursor: pointer;
+}
+
+.scale {
+  display: flex; justify-content: space-between;
+  font-size: 10.5px; color: var(--text-3); margin-top: 5px;
+}
+
+.toggle-row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px;
+}
+.toggle-desc { font-size: 11px; color: var(--text-3); margin-top: 2px; }
+
+.switch { position: relative; width: 36px; height: 20px; flex-shrink: 0; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.switch-track {
+  position: absolute; inset: 0;
+  background: var(--border-strong);
+  border-radius: 999px; cursor: pointer;
+  transition: background .18s;
+}
+.switch-track::before {
+  content: ""; position: absolute;
+  width: 15px; height: 15px; left: 2.5px; top: 2.5px;
+  background: #fff; border-radius: 50%;
+  transition: transform .18s;
+  box-shadow: var(--shadow-xs);
+}
+.switch input:checked + .switch-track { background: var(--accent); }
+.switch input:checked + .switch-track::before { transform: translateX(16px); }
+
+/* ============================================================
+   Chat
+   ============================================================ */
+.thread {
+  flex: 1;
+  overflow-y: auto;
+  padding: 28px 32px 8px;
+}
+.thread-inner { max-width: 780px; margin: 0 auto; }
+
+.welcome { text-align: center; padding: 56px 20px; }
+.welcome-mark {
+  width: 46px; height: 46px; margin: 0 auto 16px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--accent), #8b5cf6);
+  display: grid; place-items: center;
+  font-size: 20px; box-shadow: var(--shadow-md);
+}
+.welcome h2 { margin: 0 0 6px; font-size: 19px; letter-spacing: -.02em; }
+.welcome p { margin: 0 auto; color: var(--text-2); max-width: 420px; font-size: 13.5px; }
+
+.samples {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  justify-content: center; margin-top: 22px;
+}
+.sample {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 999px; padding: 7px 14px;
+  font-size: 12.5px; color: var(--text-2);
+  cursor: pointer; transition: all .14s;
+  box-shadow: var(--shadow-xs);
+}
+.sample:hover {
+  border-color: var(--accent-border); color: var(--accent);
+  background: var(--accent-soft); transform: translateY(-1px);
+}
+
+.msg { margin-bottom: 26px; animation: rise .26s ease-out; }
+@keyframes rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.msg-user { display: flex; justify-content: flex-end; }
+.bubble-user {
+  background: var(--accent); color: #fff;
+  padding: 10px 15px;
+  border-radius: 14px 14px 3px 14px;
+  max-width: 82%;
+  box-shadow: var(--shadow-sm);
+  font-size: 13.5px;
+}
+
+.answer {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  box-shadow: var(--shadow-sm);
+}
+.answer.abstained {
+  background: var(--warn-soft);
+  border-color: var(--warn-border);
+}
+
+.answer-head {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 11px;
+  font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .05em;
+  color: var(--text-3);
+}
+.answer-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--success);
+}
+.answer.abstained .answer-dot { background: var(--warn); }
+
+.answer-text { font-size: 14px; color: var(--text); white-space: pre-wrap; }
+
+/* Inline citation chip */
+.cite {
+  display: inline-block;
+  min-width: 17px; height: 17px;
+  padding: 0 4px; margin: 0 1px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+  border-radius: 5px;
+  font-size: 10.5px; font-weight: 650;
+  line-height: 15px; text-align: center;
+  vertical-align: 1px;
+  cursor: pointer;
+  transition: all .13s;
+}
+.cite:hover {
+  background: var(--accent); color: #fff;
+  transform: translateY(-1px);
+}
+
+/* ============================================================
+   Stats strip
+   ============================================================ */
+.stats {
+  display: flex; flex-wrap: wrap; gap: 18px;
+  align-items: center;
+  margin-top: 16px; padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
+.stat-label {
+  font-size: 9.5px; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--text-3); font-weight: 600;
+}
+.stat-value {
+  font-size: 12.5px; font-weight: 600; font-family: var(--mono);
+  margin-top: 1px;
+}
+
+.conf { min-width: 172px; }
+.conf-bar {
+  position: relative;
+  height: 5px; border-radius: 999px;
+  background: var(--surface-3);
+  margin-top: 5px; overflow: visible;
+}
+.conf-fill {
+  height: 100%; border-radius: 999px;
+  transition: width .5s cubic-bezier(.4,0,.2,1);
+}
+/* The abstention threshold, drawn on the bar so you can see how close an
+   answer came to being refused. */
+.conf-threshold {
+  position: absolute; top: -3px; bottom: -3px;
+  width: 2px; border-radius: 1px;
+  background: var(--text-3); opacity: .55;
+}
+.conf-legend { font-size: 9.5px; color: var(--text-3); margin-top: 4px; }
+
+/* ============================================================
+   Sources
+   ============================================================ */
+.sources { margin-top: 14px; }
+
+.sources-toggle {
+  display: flex; align-items: center; gap: 6px;
+  background: none; border: none; padding: 0;
+  color: var(--text-2); font-size: 12px; font-weight: 550;
+  cursor: pointer; font-family: inherit;
+}
+.sources-toggle:hover { color: var(--accent); }
+.sources-caret { transition: transform .18s; font-size: 9px; }
+.sources-toggle[aria-expanded="true"] .sources-caret { transform: rotate(90deg); }
+
+.sources-list { margin-top: 10px; display: none; }
+.sources-list.open { display: block; }
+
+.source {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 11px 13px;
+  transition: border-color .2s, box-shadow .2s, background .2s;
+}
+.source + .source { margin-top: 8px; }
+.source.flash {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.source.unused { opacity: .58; }
+
+.source-head {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+.source-num {
+  width: 18px; height: 18px; border-radius: 5px;
+  background: var(--accent); color: #fff;
+  font-size: 10.5px; font-weight: 650;
+  display: grid; place-items: center; flex-shrink: 0;
+}
+.source.unused .source-num { background: var(--text-3); }
+
+.source-file { font-size: 12.5px; font-weight: 600; }
+.source-loc  { font-size: 11px; color: var(--text-3); }
+
+.source-scores { display: flex; gap: 5px; margin-left: auto; }
+.score-pill {
+  font-size: 9.5px; font-family: var(--mono);
+  padding: 2px 6px; border-radius: 999px;
+  background: var(--surface-3); color: var(--text-2);
+  white-space: nowrap;
+}
+.score-pill.rr { background: var(--accent-soft); color: var(--accent); }
+
+.source-text {
+  font-size: 12px; color: var(--text-2); line-height: 1.6;
+  max-height: 62px; overflow: hidden; position: relative;
+  cursor: pointer;
+}
+.source-text.expanded { max-height: none; }
+.source-text:not(.expanded)::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 26px;
+  background: linear-gradient(transparent, var(--surface-2));
+}
+
+/* ============================================================
+   Composer
+   ============================================================ */
+.composer { padding: 12px 32px 22px; }
+.composer-inner { max-width: 780px; margin: 0 auto; }
+
+.composer-box {
+  display: flex; gap: 9px; align-items: flex-end;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  padding: 9px 10px 9px 15px;
+  box-shadow: var(--shadow-md);
+  transition: border-color .15s, box-shadow .15s;
+}
+.composer-box:focus-within {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md), 0 0 0 3px var(--accent-soft);
+}
+
+#question {
+  flex: 1; border: none; outline: none; resize: none;
+  background: transparent; color: var(--text);
+  font-family: inherit; font-size: 14px; line-height: 1.5;
+  max-height: 160px; padding: 4px 0;
+}
+#question::placeholder { color: var(--text-3); }
+
+.send {
+  width: 32px; height: 32px; border-radius: 8px;
+  border: none; background: var(--accent); color: #fff;
+  cursor: pointer; flex-shrink: 0;
+  display: grid; place-items: center; font-size: 14px;
+  transition: background .14s, transform .14s;
+}
+.send:hover:not(:disabled) { background: var(--accent-hover); transform: translateY(-1px); }
+.send:disabled { opacity: .4; cursor: not-allowed; }
+
+.composer-hint {
+  font-size: 11px; color: var(--text-3);
+  text-align: center; margin-top: 9px;
+}
+
+/* ============================================================
+   Misc
+   ============================================================ */
+.thinking { display: flex; gap: 4px; padding: 3px 0; }
+.thinking span {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--text-3);
+  animation: bounce 1.3s infinite;
+}
+.thinking span:nth-child(2) { animation-delay: .16s; }
+.thinking span:nth-child(3) { animation-delay: .32s; }
+@keyframes bounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: .4; }
+  30%           { transform: translateY(-4px); opacity: 1; }
+}
+
+.toast {
+  position: fixed; bottom: 22px; left: 50%;
+  transform: translateX(-50%) translateY(70px);
+  background: var(--text); color: var(--bg);
+  padding: 9px 17px; border-radius: 999px;
+  font-size: 12.5px; font-weight: 550;
+  box-shadow: var(--shadow-lg);
+  transition: transform .28s cubic-bezier(.4,0,.2,1);
+  z-index: 60; pointer-events: none;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+.toast.error { background: var(--danger); color: #fff; }
+
+.api-input {
+  width: 100%; padding: 7px 10px;
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  background: var(--surface-2); color: var(--text);
+  font-family: var(--mono); font-size: 11.5px; outline: none;
+}
+.api-input:focus { border-color: var(--accent); }
+
+.footnote {
+  padding: 14px 20px; font-size: 10.5px;
+  color: var(--text-3); line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+  .app { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .thread, .composer { padding-left: 16px; padding-right: 16px; }
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <!-- ============ Sidebar ============ -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-row">
+        <div class="brand-mark">K</div>
+        <div>
+          <div class="brand-title">Knowledge Base</div>
+          <div class="brand-sub">Hybrid RAG · cited answers</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Upload</div>
+      <div class="dropzone" id="dropzone">
+        <div class="dropzone-icon">⬆</div>
+        <div class="dropzone-text">Drop a file or click</div>
+        <div class="dropzone-hint">PDF, TXT, or Markdown</div>
+      </div>
+      <input type="file" id="fileInput" accept=".pdf,.txt,.md" hidden />
+    </div>
+
+    <div class="section">
+      <div class="section-title">
+        <span>Documents</span>
+        <span id="docCount" style="font-weight:600">0</span>
+      </div>
+      <div id="docList"><div class="empty">No documents indexed</div></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Retrieval</div>
+
+      <div class="control">
+        <div class="control-head">
+          <span class="control-label">Hybrid weighting</span>
+          <span class="control-value" id="alphaValue">0.60</span>
+        </div>
+        <input type="range" id="alpha" min="0" max="1" step="0.05" value="0.6" />
+        <div class="scale"><span>Keyword (BM25)</span><span>Semantic</span></div>
+      </div>
+
+      <div class="control">
+        <div class="control-head">
+          <span class="control-label">Chunks retrieved</span>
+          <span class="control-value" id="topKValue">4</span>
+        </div>
+        <input type="range" id="topK" min="1" max="10" step="1" value="4" />
+      </div>
+
+      <div class="control">
+        <div class="toggle-row">
+          <div>
+            <div class="control-label">Cross-encoder re-rank</div>
+            <div class="toggle-desc">Reorders candidates before the LLM</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="rerank" checked />
+            <span class="switch-track"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">API endpoint</div>
+      <input class="api-input" id="apiBase" value="http://localhost:8000" />
+    </div>
+
+    <div class="footnote" id="modelInfo"></div>
+  </aside>
+
+  <!-- ============ Main ============ -->
+  <main class="main">
+    <div class="thread" id="thread">
+      <div class="thread-inner" id="threadInner">
+        <div class="welcome" id="welcome">
+          <div class="welcome-mark">◎</div>
+          <h2>Ask your documents</h2>
+          <p>
+            Answers are generated only from the documents you upload, with an
+            inline citation on every claim. If retrieval isn't confident enough,
+            the assistant says so instead of guessing.
+          </p>
+          <div class="samples" id="samples"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="composer">
+      <div class="composer-inner">
+        <div class="composer-box">
+          <textarea id="question" rows="1"
+            placeholder="Ask a question about your documents…"></textarea>
+          <button class="send" id="sendBtn" title="Send">➤</button>
+        </div>
+        <div class="composer-hint">
+          Enter to send · Shift+Enter for a new line
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   State + helpers
+   ============================================================ */
+const $ = (id) => document.getElementById(id);
+const apiBase = () => $('apiBase').value.replace(/\/+$/, '');
+
+let serverConfig = null;
+let busy = false;
+let answerSeq = 0;
+
+const SAMPLES = [
+  'What does error code E-4021 mean?',
+  'How much holiday do I get?',
+  'How do I handle a SEV-1 incident?',
+];
+
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, (c) => (
+    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+  ));
+}
+
+function toast(message, isError = false) {
+  const el = $('toast');
+  el.textContent = message;
+  el.className = 'toast show' + (isError ? ' error' : '');
+  clearTimeout(el._timer);
+  el._timer = setTimeout(() => { el.className = 'toast'; }, 3200);
+}
+
+function scrollThread() {
+  const thread = $('thread');
+  thread.scrollTop = thread.scrollHeight;
+}
+
+/* ============================================================
+   Bootstrap
+   ============================================================ */
+async function loadConfig() {
+  try {
+    const res = await fetch(`${apiBase()}/config`);
+    if (!res.ok) return;
+    serverConfig = await res.json();
+
+    $('alpha').value = serverConfig.hybrid_alpha;
+    $('alphaValue').textContent = Number(serverConfig.hybrid_alpha).toFixed(2);
+    $('topK').value = serverConfig.top_k;
+    $('topKValue').textContent = serverConfig.top_k;
+
+    $('modelInfo').innerHTML =
+      `<strong>Embeddings</strong> ${escapeHtml(serverConfig.embedding_model)}<br>` +
+      `<strong>Re-ranker</strong> ${escapeHtml(serverConfig.reranker_model.split('/').pop())}<br>` +
+      `<strong>Generation</strong> ${escapeHtml(serverConfig.claude_model)}`;
+  } catch {
+    /* Backend not up yet; the endpoint field lets the user point elsewhere. */
+  }
+}
+
+async function loadDocs() {
+  const list = $('docList');
+  try {
+    const res = await fetch(`${apiBase()}/documents`);
+    const data = await res.json();
+    const docs = data.documents || [];
+
+    $('docCount').textContent = docs.length;
+
+    if (!docs.length) {
+      list.innerHTML = '<div class="empty">No documents indexed</div>';
+      return;
+    }
+
+    list.innerHTML = '';
+    for (const doc of docs) {
+      const row = document.createElement('div');
+      row.className = 'doc';
+      row.innerHTML = `
+        <div class="doc-icon">${doc.filename.toLowerCase().endsWith('.pdf') ? '▤' : '▦'}</div>
+        <div class="doc-body">
+          <div class="doc-name" title="${escapeHtml(doc.filename)}">${escapeHtml(doc.filename)}</div>
+          <div class="doc-meta">${doc.num_chunks} chunks · ${doc.num_pages} page${doc.num_pages === 1 ? '' : 's'}</div>
+        </div>
+        <button class="doc-delete" title="Remove">×</button>`;
+      row.querySelector('.doc-delete').onclick = async () => {
+        await fetch(`${apiBase()}/documents/${doc.document_id}`, { method: 'DELETE' });
+        toast(`Removed ${doc.filename}`);
+        loadDocs();
+      };
+      list.appendChild(row);
+    }
+  } catch {
+    list.innerHTML = '<div class="empty">Cannot reach the API</div>';
+    $('docCount').textContent = '0';
+  }
+}
+
+/* ============================================================
+   Upload
+   ============================================================ */
+async function upload(file) {
+  if (!file) return;
+  const zone = $('dropzone');
+  zone.classList.add('busy');
+  zone.querySelector('.dropzone-text').textContent = 'Indexing…';
+  zone.querySelector('.dropzone-hint').textContent = file.name;
+
+  try {
+    const form = new FormData();
+    form.append('file', file);
+    const res = await fetch(`${apiBase()}/documents/upload`, { method: 'POST', body: form });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.detail || 'Upload failed');
+    toast(data.message);
+    loadDocs();
+  } catch (err) {
+    toast(err.message, true);
+  } finally {
+    zone.classList.remove('busy');
+    zone.querySelector('.dropzone-text').textContent = 'Drop a file or click';
+    zone.querySelector('.dropzone-hint').textContent = 'PDF, TXT, or Markdown';
+  }
+}
+
+(function wireDropzone() {
+  const zone = $('dropzone');
+  zone.onclick = () => $('fileInput').click();
+  $('fileInput').onchange = (e) => {
+    upload(e.target.files[0]);
+    e.target.value = '';
+  };
+  ['dragenter', 'dragover'].forEach((type) =>
+    zone.addEventListener(type, (e) => {
+      e.preventDefault();
+      zone.classList.add('dragging');
+    })
+  );
+  ['dragleave', 'drop'].forEach((type) =>
+    zone.addEventListener(type, (e) => {
+      e.preventDefault();
+      zone.classList.remove('dragging');
+    })
+  );
+  zone.addEventListener('drop', (e) => upload(e.dataTransfer.files[0]));
+})();
+
+/* ============================================================
+   Rendering
+   ============================================================ */
+
+/** Replace [n] markers with clickable chips that jump to the source card. */
+function renderCitations(answer, seq, validCitations) {
+  return escapeHtml(answer).replace(/\[(\d+)\]/g, (match, num) => {
+    if (!validCitations.has(Number(num))) return match;
+    return `<span class="cite" data-seq="${seq}" data-cite="${num}" ` +
+           `title="Jump to source ${num}">${num}</span>`;
+  });
+}
+
+function confidenceColor(value, threshold) {
+  if (value < threshold) return 'var(--warn)';
+  if (value < 0.55) return '#f59e0b';
+  return 'var(--success)';
+}
+
+function renderStats(stats) {
+  if (!stats) return '';
+  const pct = Math.round(stats.confidence * 100);
+  const color = confidenceColor(stats.confidence, stats.confidence_threshold);
+  const thresholdPct = stats.confidence_threshold * 100;
+
+  return `
+    <div class="stats">
+      <div class="conf">
+        <div class="stat-label">Retrieval confidence</div>
+        <div class="stat-value" style="color:${color}">${pct}%</div>
+        <div class="conf-bar">
+          <div class="conf-fill" style="width:${pct}%;background:${color}"></div>
+          <div class="conf-threshold" style="left:${thresholdPct}%"
+               title="Abstention threshold"></div>
+        </div>
+        <div class="conf-legend">
+          cross-encoder · abstains below ${Math.round(thresholdPct)}%
+          <em>and</em> ${Math.round(stats.vector_confidence_threshold * 100)}% semantic
+        </div>
+      </div>
+      <div>
+        <div class="stat-label">Semantic</div>
+        <div class="stat-value">${Math.round(stats.semantic_confidence * 100)}%</div>
+      </div>
+      <div>
+        <div class="stat-label">Weighting</div>
+        <div class="stat-value">${stats.alpha.toFixed(2)}</div>
+      </div>
+      <div>
+        <div class="stat-label">Candidates</div>
+        <div class="stat-value">${stats.candidates_vector}v / ${stats.candidates_bm25}k</div>
+      </div>
+      <div>
+        <div class="stat-label">Re-ranked</div>
+        <div class="stat-value">${stats.reranked ? 'yes' : 'no'}</div>
+      </div>
+      <div>
+        <div class="stat-label">Retrieval</div>
+        <div class="stat-value">${stats.latency_ms} ms</div>
+      </div>
+    </div>`;
+}
+
+function renderSources(sources, seq, cited) {
+  if (!sources.length) return '';
+
+  const cards = sources.map((s) => {
+    const used = cited.has(s.citation);
+    const pills = [];
+    if (s.rerank_score != null)
+      pills.push(`<span class="score-pill rr">rr ${s.rerank_score.toFixed(2)}</span>`);
+    if (s.vector_score != null)
+      pills.push(`<span class="score-pill">vec ${s.vector_score.toFixed(2)}</span>`);
+    if (s.bm25_score != null)
+      pills.push(`<span class="score-pill">bm25 ${s.bm25_score.toFixed(1)}</span>`);
+
+    return `
+      <div class="source ${used ? '' : 'unused'}" id="src-${seq}-${s.citation}">
+        <div class="source-head">
+          <div class="source-num">${s.citation}</div>
+          <div class="source-file">${escapeHtml(s.filename)}</div>
+          <div class="source-loc">page ${s.page} · chunk ${s.chunk_index}${used ? '' : ' · not cited'}</div>
+          <div class="source-scores">${pills.join('')}</div>
+        </div>
+        <div class="source-text">${escapeHtml(s.text)}</div>
+      </div>`;
+  }).join('');
+
+  return `
+    <div class="sources">
+      <button class="sources-toggle" aria-expanded="false" data-seq="${seq}">
+        <span class="sources-caret">▶</span>
+        <span>${sources.length} source${sources.length === 1 ? '' : 's'} ·
+        ${cited.size} cited</span>
+      </button>
+      <div class="sources-list" id="sources-${seq}">${cards}</div>
+    </div>`;
+}
+
+function addUserMessage(text) {
+  $('welcome')?.remove();
+  const node = document.createElement('div');
+  node.className = 'msg msg-user';
+  node.innerHTML = `<div class="bubble-user">${escapeHtml(text)}</div>`;
+  $('threadInner').appendChild(node);
+  scrollThread();
+}
+
+function addThinking() {
+  const node = document.createElement('div');
+  node.className = 'msg';
+  node.innerHTML = `
+    <div class="answer">
+      <div class="answer-head"><span class="answer-dot"></span>Searching</div>
+      <div class="thinking"><span></span><span></span><span></span></div>
+    </div>`;
+  $('threadInner').appendChild(node);
+  scrollThread();
+  return node;
+}
+
+function renderAnswer(node, data) {
+  const seq = ++answerSeq;
+  const sources = data.sources || [];
+  const valid = new Set(sources.map((s) => s.citation));
+
+  // Which citations the model actually used, so uncited sources can be dimmed.
+  const cited = new Set(
+    [...(data.answer.match(/\[(\d+)\]/g) || [])]
+      .map((m) => Number(m.slice(1, -1)))
+      .filter((n) => valid.has(n))
+  );
+
+  node.innerHTML = `
+    <div class="answer ${data.abstained ? 'abstained' : ''}">
+      <div class="answer-head">
+        <span class="answer-dot"></span>
+        ${data.abstained ? 'Not enough information' : 'Answer'}
+      </div>
+      <div class="answer-text">${renderCitations(data.answer, seq, valid)}</div>
+      ${renderStats(data.stats)}
+      ${renderSources(sources, seq, cited)}
+    </div>`;
+
+  // Citation chip -> reveal and highlight the matching source card.
+  node.querySelectorAll('.cite').forEach((chip) => {
+    chip.onclick = () => {
+      const list = $(`sources-${seq}`);
+      const toggle = node.querySelector('.sources-toggle');
+      list.classList.add('open');
+      toggle.setAttribute('aria-expanded', 'true');
+
+      const card = $(`src-${seq}-${chip.dataset.cite}`);
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      card.classList.add('flash');
+      setTimeout(() => card.classList.remove('flash'), 1400);
+    };
+  });
+
+  const toggle = node.querySelector('.sources-toggle');
+  if (toggle) {
+    toggle.onclick = () => {
+      const list = $(`sources-${seq}`);
+      const open = list.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(open));
+    };
+  }
+
+  node.querySelectorAll('.source-text').forEach((el) => {
+    el.onclick = () => el.classList.toggle('expanded');
+  });
+
+  scrollThread();
+}
+
+/* ============================================================
+   Ask
+   ============================================================ */
+async function ask() {
+  const input = $('question');
+  const question = input.value.trim();
+  if (!question || busy) return;
+
+  busy = true;
+  $('sendBtn').disabled = true;
+  input.value = '';
+  input.style.height = 'auto';
+
+  addUserMessage(question);
+  const node = addThinking();
+
+  try {
+    const res = await fetch(`${apiBase()}/query`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        question,
+        top_k: Number($('topK').value),
+        alpha: Number($('alpha').value),
+        use_reranker: $('rerank').checked,
+      }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.detail || 'Query failed');
+    renderAnswer(node, data);
+  } catch (err) {
+    node.innerHTML = `
+      <div class="answer abstained">
+        <div class="answer-head"><span class="answer-dot"></span>Error</div>
+        <div class="answer-text">${escapeHtml(err.message)}</div>
+      </div>`;
+    toast(err.message, true);
+  } finally {
+    busy = false;
+    $('sendBtn').disabled = false;
+    input.focus();
+  }
+}
+
+/* ============================================================
+   Wiring
+   ============================================================ */
+$('alpha').oninput = (e) => {
+  $('alphaValue').textContent = Number(e.target.value).toFixed(2);
+};
+$('topK').oninput = (e) => { $('topKValue').textContent = e.target.value; };
+
+$('sendBtn').onclick = ask;
+
+$('question').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    ask();
+  }
+});
+$('question').addEventListener('input', (e) => {
+  e.target.style.height = 'auto';
+  e.target.style.height = Math.min(e.target.scrollHeight, 160) + 'px';
+});
+
+$('apiBase').onchange = () => { loadConfig(); loadDocs(); };
+
+(function renderSamples() {
+  const wrap = $('samples');
+  if (!wrap) return;
+  SAMPLES.forEach((text) => {
+    const chip = document.createElement('button');
+    chip.className = 'sample';
+    chip.textContent = text;
+    chip.onclick = () => {
+      $('question').value = text;
+      ask();
+    };
+    wrap.appendChild(chip);
+  });
+})();
+
+loadConfig();
+loadDocs();
+$('question').focus();
+</script>
+</body>
+</html>

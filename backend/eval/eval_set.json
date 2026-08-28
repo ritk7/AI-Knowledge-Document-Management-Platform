@@ -1,0 +1,291 @@
+{
+  "description": "Retrieval evaluation set for the hybrid RAG pipeline. Ground truth is defined by evidence phrases rather than hard-coded chunk IDs, so the labels survive changes to CHUNK_SIZE / CHUNK_OVERLAP: a chunk is relevant if it comes from the named document AND contains at least one evidence phrase (case-insensitive, whitespace-normalized). Each item is tagged with the retrieval mode it is designed to stress.",
+  "categories": {
+    "lexical": "Rare literal tokens (error codes, identifiers). Embeddings blur these; BM25 nails them.",
+    "semantic": "Paraphrase with little or no term overlap. BM25 scores near zero; embeddings match easily.",
+    "mixed": "Both signals available; tests that fusion does not degrade the easy case.",
+    "unanswerable": "Not covered by any document. Used to calibrate the abstention threshold."
+  },
+  "items": [
+    {
+      "id": "lex-01",
+      "question": "What does error code E-4021 mean?",
+      "category": "lexical",
+      "document": "orbital_api_reference.md",
+      "evidence_phrases": ["E-4021"],
+      "answerable": true
+    },
+    {
+      "id": "lex-02",
+      "question": "What is error E-4090 returned for?",
+      "category": "lexical",
+      "document": "orbital_api_reference.md",
+      "evidence_phrases": ["E-4090"],
+      "answerable": true
+    },
+    {
+      "id": "lex-03",
+      "question": "What is the difference between E-4290 and E-4291?",
+      "category": "lexical",
+      "document": "orbital_api_reference.md",
+      "evidence_phrases": ["E-4290", "E-4291"],
+      "answerable": true
+    },
+    {
+      "id": "lex-04",
+      "question": "What header is the webhook signature sent in?",
+      "category": "lexical",
+      "document": "orbital_api_reference.md",
+      "evidence_phrases": ["Orbital-Signature"],
+      "answerable": true
+    },
+    {
+      "id": "lex-05",
+      "question": "What aud claim must the JWT assertion include?",
+      "category": "lexical",
+      "document": "orbital_api_reference.md",
+      "evidence_phrases": ["https://api.orbital.example/token", "aud"],
+      "answerable": true
+    },
+    {
+      "id": "lex-06",
+      "question": "What does error code E-4030 indicate?",
+      "category": "lexical",
+      "document": "orbital_api_reference.md",
+      "evidence_phrases": ["E-4030"],
+      "answerable": true
+    },
+    {
+      "id": "lex-07",
+      "question": "Which channel is the security on-call reachable through?",
+      "category": "lexical",
+      "document": "security_incident_policy.md",
+      "evidence_phrases": ["#sec-oncall"],
+      "answerable": true
+    },
+    {
+      "id": "lex-08",
+      "question": "What is a SEV-1 incident?",
+      "category": "lexical",
+      "document": "security_incident_policy.md",
+      "evidence_phrases": ["SEV-1 — Critical"],
+      "answerable": true
+    },
+    {
+      "id": "sem-01",
+      "question": "How much holiday do I get each year?",
+      "category": "semantic",
+      "document": "acme_employee_handbook.md",
+      "evidence_phrases": ["twenty-five days of paid annual leave"],
+      "answerable": true
+    },
+    {
+      "id": "sem-02",
+      "question": "Can I roll unused vacation into next year?",
+      "category": "semantic",
+      "document": "acme_employee_handbook.md",
+      "evidence_phrases": ["carry over a maximum of five unused annual leave days"],
+      "answerable": true
+    },
+    {
+      "id": "sem-03",
+      "question": "What happens if I have a new baby?",
+      "category": "semantic",
+      "document": "acme_employee_handbook.md",
+      "evidence_phrases": ["twenty-six weeks of parental leave", "Secondary caregivers are entitled to twelve weeks"],
+      "answerable": true
+    },
+    {
+      "id": "sem-04",
+      "question": "Do I need a doctor's note if I'm off sick?",
+      "category": "semantic",
+      "document": "acme_employee_handbook.md",
+      "evidence_phrases": ["medical certificate", "registered medical practitioner"],
+      "answerable": true
+    },
+    {
+      "id": "sem-05",
+      "question": "How often am I evaluated at work?",
+      "category": "semantic",
+      "document": "acme_employee_handbook.md",
+      "evidence_phrases": ["Performance reviews are conducted twice per year"],
+      "answerable": true
+    },
+    {
+      "id": "sem-06",
+      "question": "Is there money available for me to learn new skills?",
+      "category": "semantic",
+      "document": "acme_employee_handbook.md",
+      "evidence_phrases": ["annual professional development allowance of 2,000 EUR"],
+      "answerable": true
+    },
+    {
+      "id": "sem-07",
+      "question": "How quickly must customers be told after a breach?",
+      "category": "semantic",
+      "document": "security_incident_policy.md",
+      "evidence_phrases": ["notified within seventy-two hours"],
+      "answerable": true
+    },
+    {
+      "id": "sem-08",
+      "question": "Should I shut down a hacked server straight away?",
+      "category": "semantic",
+      "document": "security_incident_policy.md",
+      "evidence_phrases": ["capture a memory image", "destroys the only reliable record"],
+      "answerable": true
+    },
+    {
+      "id": "sem-09",
+      "question": "Will I get in trouble for raising an alarm that turns out to be nothing?",
+      "category": "semantic",
+      "document": "security_incident_policy.md",
+      "evidence_phrases": ["no employee will face any negative consequence for escalating"],
+      "answerable": true
+    },
+    {
+      "id": "sem-10",
+      "question": "Can I work from another country for a while?",
+      "category": "semantic",
+      "document": "acme_employee_handbook.md",
+      "evidence_phrases": ["thirty consecutive days require prior written approval", "permanent establishment tax"],
+      "answerable": true
+    },
+    {
+      "id": "mix-01",
+      "question": "What is the rate limit for the Orbital API?",
+      "category": "mixed",
+      "document": "orbital_api_reference.md",
+      "evidence_phrases": ["600 requests per minute", "burst allowance of 100 requests"],
+      "answerable": true
+    },
+    {
+      "id": "mix-02",
+      "question": "How long are access tokens valid for?",
+      "category": "mixed",
+      "document": "orbital_api_reference.md",
+      "evidence_phrases": ["Access tokens expire after 3600 seconds"],
+      "answerable": true
+    },
+    {
+      "id": "mix-03",
+      "question": "How does pagination work in the API?",
+      "category": "mixed",
+      "document": "orbital_api_reference.md",
+      "evidence_phrases": ["cursor-based", "next_cursor"],
+      "answerable": true
+    },
+    {
+      "id": "mix-04",
+      "question": "How many times are failed webhooks retried?",
+      "category": "mixed",
+      "document": "orbital_api_reference.md",
+      "evidence_phrases": ["up to eight times"],
+      "answerable": true
+    },
+    {
+      "id": "mix-05",
+      "question": "How long are idempotency keys retained?",
+      "category": "mixed",
+      "document": "orbital_api_reference.md",
+      "evidence_phrases": ["retained for", "twenty-four hours"],
+      "answerable": true
+    },
+    {
+      "id": "mix-06",
+      "question": "What is the expense limit before I need approval?",
+      "category": "mixed",
+      "document": "acme_employee_handbook.md",
+      "evidence_phrases": ["400 EUR per individual item"],
+      "answerable": true
+    },
+    {
+      "id": "mix-07",
+      "question": "What is the home office equipment budget?",
+      "category": "mixed",
+      "document": "acme_employee_handbook.md",
+      "evidence_phrases": ["home-office equipment budget of 1,200 EUR"],
+      "answerable": true
+    },
+    {
+      "id": "mix-08",
+      "question": "When can I book premium economy or business class flights?",
+      "category": "mixed",
+      "document": "acme_employee_handbook.md",
+      "evidence_phrases": ["premium economy", "Business class requires VP-level approval"],
+      "answerable": true
+    },
+    {
+      "id": "mix-09",
+      "question": "How long do I have to acknowledge a SEV-2 incident?",
+      "category": "mixed",
+      "document": "security_incident_policy.md",
+      "evidence_phrases": ["within one hour during business hours"],
+      "answerable": true
+    },
+    {
+      "id": "mix-10",
+      "question": "When must a post-incident review be published?",
+      "category": "mixed",
+      "document": "security_incident_policy.md",
+      "evidence_phrases": ["within ten business days"],
+      "answerable": true
+    },
+    {
+      "id": "mix-11",
+      "question": "How many days a month do I need to be in the office?",
+      "category": "mixed",
+      "document": "acme_employee_handbook.md",
+      "evidence_phrases": ["minimum of eight days per calendar month"],
+      "answerable": true
+    },
+    {
+      "id": "mix-12",
+      "question": "What are the core collaboration hours?",
+      "category": "mixed",
+      "document": "acme_employee_handbook.md",
+      "evidence_phrases": ["11:00 to 15:00 UTC"],
+      "answerable": true
+    },
+    {
+      "id": "una-01",
+      "question": "What is ACME Robotics' policy on pet insurance?",
+      "category": "unanswerable",
+      "document": null,
+      "evidence_phrases": [],
+      "answerable": false
+    },
+    {
+      "id": "una-02",
+      "question": "Which cloud provider hosts the Orbital production database?",
+      "category": "unanswerable",
+      "document": null,
+      "evidence_phrases": [],
+      "answerable": false
+    },
+    {
+      "id": "una-03",
+      "question": "What was ACME Robotics' revenue in the last fiscal quarter?",
+      "category": "unanswerable",
+      "document": null,
+      "evidence_phrases": [],
+      "answerable": false
+    },
+    {
+      "id": "una-04",
+      "question": "How do I reset my password on the internal wiki?",
+      "category": "unanswerable",
+      "document": null,
+      "evidence_phrases": [],
+      "answerable": false
+    },
+    {
+      "id": "una-05",
+      "question": "What is the boiling point of liquid nitrogen?",
+      "category": "unanswerable",
+      "document": null,
+      "evidence_phrases": [],
+      "answerable": false
+    }
+  ]
+}

@@ -1,0 +1,153 @@
+{
+  "main": [
+    {
+      "method": "brute",
+      "label": "Brute force (exact)",
+      "size": 100,
+      "ef_search": null,
+      "build_ms": 0.7,
+      "query_mean_ms": 0.02,
+      "query_p95_ms": 0.021,
+      "recall_at_10": 1.0,
+      "memory_mb": 0.15,
+      "memory_method": "exact"
+    },
+    {
+      "method": "hnsw",
+      "label": "Custom HNSW (this repo)",
+      "size": 100,
+      "ef_search": null,
+      "build_ms": 308.3,
+      "query_mean_ms": 0.256,
+      "query_p95_ms": 0.28,
+      "recall_at_10": 1.0,
+      "memory_mb": 0.26,
+      "memory_method": "exact",
+      "avg_degree_layer0": 32.0,
+      "top_level": 1,
+      "index_bytes": 270312
+    },
+    {
+      "method": "chroma",
+      "label": "ChromaDB (hnswlib, C++)",
+      "size": 100,
+      "ef_search": null,
+      "build_ms": 923.4,
+      "query_mean_ms": 0.56,
+      "query_p95_ms": 0.827,
+      "recall_at_10": 1.0,
+      "memory_mb": 71.61,
+      "memory_method": "rss"
+    },
+    {
+      "method": "brute",
+      "label": "Brute force (exact)",
+      "size": 1000,
+      "ef_search": null,
+      "build_ms": 2.0,
+      "query_mean_ms": 0.063,
+      "query_p95_ms": 0.108,
+      "recall_at_10": 1.0,
+      "memory_mb": 1.51,
+      "memory_method": "exact"
+    },
+    {
+      "method": "hnsw",
+      "label": "Custom HNSW (this repo)",
+      "size": 1000,
+      "ef_search": null,
+      "build_ms": 6982.9,
+      "query_mean_ms": 0.463,
+      "query_p95_ms": 0.491,
+      "recall_at_10": 1.0,
+      "memory_mb": 2.59,
+      "memory_method": "exact",
+      "avg_degree_layer0": 32.0,
+      "top_level": 2,
+      "index_bytes": 2716944
+    },
+    {
+      "method": "chroma",
+      "label": "ChromaDB (hnswlib, C++)",
+      "size": 1000,
+      "ef_search": null,
+      "build_ms": 907.8,
+      "query_mean_ms": 0.766,
+      "query_p95_ms": 0.831,
+      "recall_at_10": 1.0,
+      "memory_mb": 88.42,
+      "memory_method": "rss"
+    },
+    {
+      "method": "brute",
+      "label": "Brute force (exact)",
+      "size": 5000,
+      "ef_search": null,
+      "build_ms": 3.1,
+      "query_mean_ms": 0.141,
+      "query_p95_ms": 0.172,
+      "recall_at_10": 1.0,
+      "memory_mb": 7.58,
+      "memory_method": "exact"
+    },
+    {
+      "method": "hnsw",
+      "label": "Custom HNSW (this repo)",
+      "size": 5000,
+      "ef_search": null,
+      "build_ms": 54135.7,
+      "query_mean_ms": 0.824,
+      "query_p95_ms": 0.9,
+      "recall_at_10": 1.0,
+      "memory_mb": 12.98,
+      "memory_method": "exact",
+      "avg_degree_layer0": 32.0,
+      "top_level": 3,
+      "index_bytes": 13613448
+    },
+    {
+      "method": "chroma",
+      "label": "ChromaDB (hnswlib, C++)",
+      "size": 5000,
+      "ef_search": null,
+      "build_ms": 1867.3,
+      "query_mean_ms": 1.032,
+      "query_p95_ms": 1.119,
+      "recall_at_10": 1.0,
+      "memory_mb": 134.92,
+      "memory_method": "rss"
+    }
+  ],
+  "ef_sweep": [
+    {
+      "ef_search": 10,
+      "query_mean_ms": 0.298,
+      "recall_at_10": 0.978
+    },
+    {
+      "ef_search": 16,
+      "query_mean_ms": 0.365,
+      "recall_at_10": 0.995
+    },
+    {
+      "ef_search": 32,
+      "query_mean_ms": 0.531,
+      "recall_at_10": 0.999
+    },
+    {
+      "ef_search": 64,
+      "query_mean_ms": 0.808,
+      "recall_at_10": 1.0
+    },
+    {
+      "ef_search": 128,
+      "query_mean_ms": 1.612,
+      "recall_at_10": 1.0
+    },
+    {
+      "ef_search": 256,
+      "query_mean_ms": 3.294,
+      "recall_at_10": 1.0
+    }
+  ]
+}

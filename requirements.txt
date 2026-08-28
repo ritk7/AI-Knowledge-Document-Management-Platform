@@ -1,0 +1,36 @@
+# Requires Python 3.10-3.13. Python 3.14 has no PyTorch wheels yet, which
+# sentence-transformers depends on -- create the venv with `python3.13 -m venv`.
+#
+# Lower bounds rather than exact pins, so the resolver can pick wheels that
+# exist for your interpreter and platform.
+
+# --- Web layer ---
+fastapi>=0.115
+uvicorn[standard]>=0.32
+python-multipart>=0.0.18
+pydantic>=2.9
+pydantic-settings>=2.6
+
+# --- Chunking ---
+langchain-text-splitters>=0.3
+
+# --- Embeddings & cross-encoder re-ranking ---
+sentence-transformers>=3.3
+
+# --- Vector store ---
+chromadb>=0.5.20
+
+# --- Keyword search (hybrid retrieval) ---
+rank-bm25>=0.2.2
+
+# --- Document parsing ---
+pypdf>=5.1
+
+# --- LLM ---
+anthropic>=0.42
+python-dotenv>=1.0
+
+# --- Benchmarking / evaluation ---
+numpy>=1.26
+matplotlib>=3.9
+psutil>=6.1

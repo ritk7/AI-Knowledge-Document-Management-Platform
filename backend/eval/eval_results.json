@@ -1,0 +1,4399 @@
+{
+  "configs": {
+    "Vector only": {
+      "alpha": 1.0,
+      "use_reranker": false,
+      "summary": {
+        "1": {
+          "precision": 0.7667,
+          "recall": 0.7333,
+          "hit": 0.7667,
+          "mrr": 0.8594
+        },
+        "3": {
+          "precision": 0.3222,
+          "recall": 0.9,
+          "hit": 0.9333,
+          "mrr": 0.8594
+        },
+        "5": {
+          "precision": 0.2067,
+          "recall": 0.95,
+          "hit": 1.0,
+          "mrr": 0.8594
+        }
+      },
+      "per_question": [
+        {
+          "id": "lex-01",
+          "category": "lexical",
+          "retrieved": [
+            "security_incident_policy.md_1",
+            "orbital_api_reference.md_2",
+            "orbital_api_reference.md_0",
+            "orbital_api_reference.md_1",
+            "orbital_api_reference.md_4"
+          ],
+          "scores": {
+            "1": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.5
+            },
+            "3": {
+              "precision": 0.6666666666666666,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 0.5
+            },
+            "5": {
+              "precision": 0.4,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 0.5
+            }
+          }
+        },
+        {
+          "id": "lex-02",
+          "category": "lexical",
+          "retrieved": [
+            "orbital_api_reference.md_1",
+            "security_incident_policy.md_1",
+            "orbital_api_reference.md_4",
+            "orbital_api_reference.md_2",
+            "security_incident_policy.md_0"
+          ],
+          "scores": {
+            "1": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.25
+            },
+            "3": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.25
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 0.5,
+              "hit": 1.0,
+              "mrr": 0.25
+            }
+          }
+        },
+        {
+          "id": "lex-03",
+          "category": "lexical",
+          "retrieved": [
+            "orbital_api_reference.md_1",
+            "orbital_api_reference.md_4",
+            "acme_employee_handbook.md_4",
+            "acme_employee_handbook.md_3",
+            "orbital_api_reference.md_3"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 0.5,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 0.5,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 0.5,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "lex-04",
+          "category": "lexical",
+          "retrieved": [
+            "orbital_api_reference.md_4",
+            "security_incident_policy.md_1",
+            "orbital_api_reference.md_3",
+            "orbital_api_reference.md_0",
+            "orbital_api_reference.md_2"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "lex-05",
+          "category": "lexical",
+          "retrieved": [
+            "orbital_api_reference.md_0",
+            "security_incident_policy.md_1",
+            "orbital_api_reference.md_4",
+            "acme_employee_handbook.md_5",
+            "acme_employee_handbook.md_3"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "lex-06",
+          "category": "lexical",
+          "retrieved": [
+            "orbital_api_reference.md_2",
+            "security_incident_policy.md_1",
+            "orbital_api_reference.md_1",
+            "security_incident_policy.md_0",
+            "orbital_api_reference.md_0"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "lex-07",
+          "category": "lexical",
+          "retrieved": [
+            "security_incident_policy.md_2",
+            "security_incident_policy.md_0",
+            "security_incident_policy.md_1",
+            "security_incident_policy.md_3",
+            "orbital_api_reference.md_4"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "lex-08",
+          "category": "lexical",
+          "retrieved": [
+            "security_incident_policy.md_4",
+            "security_incident_policy.md_1",
+            "security_incident_policy.md_3",
+            "security_incident_policy.md_2",
+            "security_incident_policy.md_0"
+          ],
+          "scores": {
+            "1": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.2
+            },
+            "3": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.2
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 0.2
+            }
+          }
+        },
+        {
+          "id": "sem-01",
+          "category": "semantic",
+          "retrieved": [
+            "acme_employee_handbook.md_5",
+            "acme_employee_handbook.md_1",
+            "acme_employee_handbook.md_2",
+            "acme_employee_handbook.md_3",
+            "acme_employee_handbook.md_4"
+          ],
+          "scores": {
+            "1": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.5
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 0.5
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 0.5
+            }
+          }
+        },
+        {
+          "id": "sem-02",
+          "category": "semantic",
+          "retrieved": [
+            "acme_employee_handbook.md_1",
+            "acme_employee_handbook.md_2",
+            "acme_employee_handbook.md_3",
+            "acme_employee_handbook.md_5",
+            "acme_employee_handbook.md_4"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "sem-03",
+          "category": "semantic",
+          "retrieved": [
+            "acme_employee_handbook.md_2",
+            "orbital_api_reference.md_4",
+            "security_incident_policy.md_3",
+            "security_incident_policy.md_4",
+            "acme_employee_handbook.md_5"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "sem-04",
+          "category": "semantic",
+          "retrieved": [
+            "acme_employee_handbook.md_2",
+            "acme_employee_handbook.md_1",
+            "security_incident_policy.md_1",
+            "security_incident_policy.md_4",
+            "security_incident_policy.md_0"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "sem-05",
+          "category": "semantic",
+          "retrieved": [
+            "acme_employee_handbook.md_4",
+            "acme_employee_handbook.md_0",
+            "acme_employee_handbook.md_1",
+            "acme_employee_handbook.md_5",
+            "security_incident_policy.md_2"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "sem-06",
+          "category": "semantic",
+          "retrieved": [
+            "acme_employee_handbook.md_5",
+            "acme_employee_handbook.md_1",
+            "acme_employee_handbook.md_3",
+            "acme_employee_handbook.md_0",
+            "acme_employee_handbook.md_4"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "sem-07",
+          "category": "semantic",
+          "retrieved": [
+            "security_incident_policy.md_3",
+            "security_incident_policy.md_1",
+            "security_incident_policy.md_4",
+            "security_incident_policy.md_2",
+            "security_incident_policy.md_0"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "sem-08",
+          "category": "semantic",
+          "retrieved": [
+            "security_incident_policy.md_3",
+            "security_incident_policy.md_1",
+            "security_incident_policy.md_2",
+            "security_incident_policy.md_4",
+            "security_incident_policy.md_0"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "sem-09",
+          "category": "semantic",
+          "retrieved": [
+            "security_incident_policy.md_0",
+            "security_incident_policy.md_1",
+            "security_incident_policy.md_2",
+            "security_incident_policy.md_3",
+            "security_incident_policy.md_4"
+          ],
+          "scores": {
+            "1": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.3333333333333333
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 0.3333333333333333
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 0.3333333333333333
+            }
+          }
+        },
+        {
+          "id": "sem-10",
+          "category": "semantic",
+          "retrieved": [
+            "acme_employee_handbook.md_1",
+            "acme_employee_handbook.md_0",
+            "acme_employee_handbook.md_5",
+            "acme_employee_handbook.md_2",
+            "orbital_api_reference.md_2"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-01",
+          "category": "mixed",
+          "retrieved": [
+            "orbital_api_reference.md_0",
+            "orbital_api_reference.md_4",
+            "orbital_api_reference.md_1",
+            "acme_employee_handbook.md_0",
+            "orbital_api_reference.md_2"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-02",
+          "category": "mixed",
+          "retrieved": [
+            "orbital_api_reference.md_0",
+            "acme_employee_handbook.md_1",
+            "orbital_api_reference.md_2",
+            "acme_employee_handbook.md_0",
+            "security_incident_policy.md_1"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-03",
+          "category": "mixed",
+          "retrieved": [
+            "orbital_api_reference.md_3",
+            "orbital_api_reference.md_1",
+            "orbital_api_reference.md_4",
+            "orbital_api_reference.md_0",
+            "orbital_api_reference.md_2"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-04",
+          "category": "mixed",
+          "retrieved": [
+            "orbital_api_reference.md_4",
+            "orbital_api_reference.md_3",
+            "security_incident_policy.md_1",
+            "security_incident_policy.md_4",
+            "security_incident_policy.md_3"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-05",
+          "category": "mixed",
+          "retrieved": [
+            "orbital_api_reference.md_3",
+            "security_incident_policy.md_3",
+            "orbital_api_reference.md_0",
+            "acme_employee_handbook.md_1",
+            "security_incident_policy.md_1"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 0.5,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 0.5,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 0.5,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-06",
+          "category": "mixed",
+          "retrieved": [
+            "acme_employee_handbook.md_3",
+            "acme_employee_handbook.md_5",
+            "acme_employee_handbook.md_1",
+            "acme_employee_handbook.md_4",
+            "orbital_api_reference.md_1"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-07",
+          "category": "mixed",
+          "retrieved": [
+            "acme_employee_handbook.md_3",
+            "acme_employee_handbook.md_0",
+            "acme_employee_handbook.md_5",
+            "acme_employee_handbook.md_1",
+            "acme_employee_handbook.md_4"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-08",
+          "category": "mixed",
+          "retrieved": [
+            "acme_employee_handbook.md_4",
+            "acme_employee_handbook.md_3",
+            "acme_employee_handbook.md_0",
+            "acme_employee_handbook.md_1",
+            "acme_employee_handbook.md_5"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-09",
+          "category": "mixed",
+          "retrieved": [
+            "security_incident_policy.md_4",
+            "security_incident_policy.md_1",
+            "security_incident_policy.md_3",
+            "security_incident_policy.md_2",
+            "security_incident_policy.md_0"
+          ],
+          "scores": {
+            "1": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.5
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 0.5
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 0.5
+            }
+          }
+        },
+        {
+          "id": "mix-10",
+          "category": "mixed",
+          "retrieved": [
+            "security_incident_policy.md_4",
+            "security_incident_policy.md_3",
+            "security_incident_policy.md_1",
+            "security_incident_policy.md_0",
+            "security_incident_policy.md_2"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-11",
+          "category": "mixed",
+          "retrieved": [
+            "acme_employee_handbook.md_1",
+            "acme_employee_handbook.md_0",
+            "acme_employee_handbook.md_2",
+            "acme_employee_handbook.md_5",
+            "acme_employee_handbook.md_3"
+          ],
+          "scores": {
+            "1": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.5
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 0.5
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 0.5
+            }
+          }
+        },
+        {
+          "id": "mix-12",
+          "category": "mixed",
+          "retrieved": [
+            "acme_employee_handbook.md_0",
+            "acme_employee_handbook.md_5",
+            "acme_employee_handbook.md_1",
+            "security_incident_policy.md_1",
+            "acme_employee_handbook.md_4"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        }
+      ]
+    },
+    "BM25 only": {
+      "alpha": 0.0,
+      "use_reranker": false,
+      "summary": {
+        "1": {
+          "precision": 0.7,
+          "recall": 0.6333,
+          "hit": 0.7,
+          "mrr": 0.775
+        },
+        "3": {
+          "precision": 0.3111,
+          "recall": 0.8167,
+          "hit": 0.8333,
+          "mrr": 0.775
+        },
+        "5": {
+          "precision": 0.1933,
+          "recall": 0.85,
+          "hit": 0.8667,
+          "mrr": 0.775
+        }
+      },
+      "per_question": [
+        {
+          "id": "lex-01",
+          "category": "lexical",
+          "retrieved": [
+            "orbital_api_reference.md_2",
+            "orbital_api_reference.md_1",
+            "orbital_api_reference.md_0",
+            "orbital_api_reference.md_3",
+            "security_incident_policy.md_4"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 0.5,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.6666666666666666,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.4,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "lex-02",
+          "category": "lexical",
+          "retrieved": [
+            "orbital_api_reference.md_2",
+            "orbital_api_reference.md_3",
+            "security_incident_policy.md_4",
+            "acme_employee_handbook.md_3",
+            "orbital_api_reference.md_1"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 0.5,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.6666666666666666,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.4,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "lex-03",
+          "category": "lexical",
+          "retrieved": [
+            "orbital_api_reference.md_1",
+            "orbital_api_reference.md_2",
+            "security_incident_policy.md_4",
+            "orbital_api_reference.md_3",
+            "acme_employee_handbook.md_5"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 0.5,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.6666666666666666,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.4,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "lex-04",
+          "category": "lexical",
+          "retrieved": [
+            "orbital_api_reference.md_4",
+            "security_incident_policy.md_3",
+            "security_incident_policy.md_4",
+            "orbital_api_reference.md_2",
+            "orbital_api_reference.md_3"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "lex-05",
+          "category": "lexical",
+          "retrieved": [
+            "orbital_api_reference.md_0",
+            "security_incident_policy.md_4",
+            "orbital_api_reference.md_3",
+            "orbital_api_reference.md_4",
+            "acme_employee_handbook.md_3"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "lex-06",
+          "category": "lexical",
+          "retrieved": [
+            "orbital_api_reference.md_2",
+            "orbital_api_reference.md_1",
+            "orbital_api_reference.md_3",
+            "security_incident_policy.md_4",
+            "orbital_api_reference.md_0"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "lex-07",
+          "category": "lexical",
+          "retrieved": [
+            "security_incident_policy.md_2",
+            "security_incident_policy.md_0",
+            "acme_employee_handbook.md_0",
+            "security_incident_policy.md_1",
+            "security_incident_policy.md_3"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "lex-08",
+          "category": "lexical",
+          "retrieved": [
+            "security_incident_policy.md_4",
+            "security_incident_policy.md_0",
+            "security_incident_policy.md_2",
+            "security_incident_policy.md_3",
+            "orbital_api_reference.md_3"
+          ],
+          "scores": {
+            "1": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.5
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 0.5
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 0.5
+            }
+          }
+        },
+        {
+          "id": "sem-01",
+          "category": "semantic",
+          "retrieved": [
+            "acme_employee_handbook.md_5",
+            "acme_employee_handbook.md_1",
+            "security_incident_policy.md_4",
+            "acme_employee_handbook.md_3",
+            "acme_employee_handbook.md_4"
+          ],
+          "scores": {
+            "1": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.5
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 0.5
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 0.5
+            }
+          }
+        },
+        {
+          "id": "sem-02",
+          "category": "semantic",
+          "retrieved": [
+            "acme_employee_handbook.md_1",
+            "security_incident_policy.md_0",
+            "acme_employee_handbook.md_5",
+            "orbital_api_reference.md_4",
+            "acme_employee_handbook.md_2"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "sem-03",
+          "category": "semantic",
+          "retrieved": [
+            "security_incident_policy.md_4",
+            "orbital_api_reference.md_0",
+            "security_incident_policy.md_2",
+            "acme_employee_handbook.md_3",
+            "acme_employee_handbook.md_5"
+          ],
+          "scores": {
+            "1": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.0
+            },
+            "3": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.0
+            },
+            "5": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.0
+            }
+          }
+        },
+        {
+          "id": "sem-04",
+          "category": "semantic",
+          "retrieved": [
+            "acme_employee_handbook.md_5",
+            "acme_employee_handbook.md_2",
+            "acme_employee_handbook.md_1",
+            "acme_employee_handbook.md_0",
+            "security_incident_policy.md_2"
+          ],
+          "scores": {
+            "1": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.5
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 0.5
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 0.5
+            }
+          }
+        },
+        {
+          "id": "sem-05",
+          "category": "semantic",
+          "retrieved": [
+            "acme_employee_handbook.md_2",
+            "acme_employee_handbook.md_0",
+            "security_incident_policy.md_2",
+            "security_incident_policy.md_3",
+            "security_incident_policy.md_0"
+          ],
+          "scores": {
+            "1": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.0
+            },
+            "3": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.0
+            },
+            "5": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.0
+            }
+          }
+        },
+        {
+          "id": "sem-06",
+          "category": "semantic",
+          "retrieved": [
+            "acme_employee_handbook.md_2",
+            "orbital_api_reference.md_0",
+            "acme_employee_handbook.md_0",
+            "security_incident_policy.md_2",
+            "security_incident_policy.md_3"
+          ],
+          "scores": {
+            "1": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.0
+            },
+            "3": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.0
+            },
+            "5": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.0
+            }
+          }
+        },
+        {
+          "id": "sem-07",
+          "category": "semantic",
+          "retrieved": [
+            "security_incident_policy.md_3",
+            "orbital_api_reference.md_3",
+            "acme_employee_handbook.md_1",
+            "orbital_api_reference.md_0",
+            "acme_employee_handbook.md_3"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "sem-08",
+          "category": "semantic",
+          "retrieved": [
+            "orbital_api_reference.md_1",
+            "security_incident_policy.md_4",
+            "orbital_api_reference.md_3",
+            "security_incident_policy.md_3",
+            "security_incident_policy.md_2"
+          ],
+          "scores": {
+            "1": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.25
+            },
+            "3": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.25
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 0.25
+            }
+          }
+        },
+        {
+          "id": "sem-09",
+          "category": "semantic",
+          "retrieved": [
+            "security_incident_policy.md_2",
+            "acme_employee_handbook.md_1",
+            "security_incident_policy.md_0",
+            "orbital_api_reference.md_1",
+            "acme_employee_handbook.md_2"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "sem-10",
+          "category": "semantic",
+          "retrieved": [
+            "acme_employee_handbook.md_1",
+            "acme_employee_handbook.md_2",
+            "security_incident_policy.md_2",
+            "security_incident_policy.md_3",
+            "acme_employee_handbook.md_0"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-01",
+          "category": "mixed",
+          "retrieved": [
+            "orbital_api_reference.md_0",
+            "orbital_api_reference.md_2",
+            "security_incident_policy.md_4",
+            "orbital_api_reference.md_4",
+            "security_incident_policy.md_2"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-02",
+          "category": "mixed",
+          "retrieved": [
+            "orbital_api_reference.md_0",
+            "acme_employee_handbook.md_2",
+            "acme_employee_handbook.md_0",
+            "security_incident_policy.md_3",
+            "security_incident_policy.md_0"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-03",
+          "category": "mixed",
+          "retrieved": [
+            "orbital_api_reference.md_0",
+            "orbital_api_reference.md_3",
+            "orbital_api_reference.md_2",
+            "security_incident_policy.md_2",
+            "acme_employee_handbook.md_2"
+          ],
+          "scores": {
+            "1": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.5
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 0.5
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 0.5
+            }
+          }
+        },
+        {
+          "id": "mix-04",
+          "category": "mixed",
+          "retrieved": [
+            "orbital_api_reference.md_4",
+            "orbital_api_reference.md_3",
+            "orbital_api_reference.md_2",
+            "acme_employee_handbook.md_0",
+            "orbital_api_reference.md_0"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-05",
+          "category": "mixed",
+          "retrieved": [
+            "orbital_api_reference.md_3",
+            "orbital_api_reference.md_2",
+            "acme_employee_handbook.md_0",
+            "orbital_api_reference.md_0",
+            "acme_employee_handbook.md_2"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 0.5,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 0.5,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 0.5,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-06",
+          "category": "mixed",
+          "retrieved": [
+            "acme_employee_handbook.md_3",
+            "security_incident_policy.md_4",
+            "security_incident_policy.md_3",
+            "security_incident_policy.md_2",
+            "acme_employee_handbook.md_1"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-07",
+          "category": "mixed",
+          "retrieved": [
+            "acme_employee_handbook.md_3",
+            "security_incident_policy.md_4",
+            "acme_employee_handbook.md_2",
+            "acme_employee_handbook.md_0",
+            "security_incident_policy.md_2"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-08",
+          "category": "mixed",
+          "retrieved": [
+            "acme_employee_handbook.md_4",
+            "orbital_api_reference.md_3",
+            "security_incident_policy.md_1",
+            "security_incident_policy.md_4",
+            "acme_employee_handbook.md_3"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-09",
+          "category": "mixed",
+          "retrieved": [
+            "security_incident_policy.md_2",
+            "acme_employee_handbook.md_5",
+            "security_incident_policy.md_3",
+            "security_incident_policy.md_4",
+            "security_incident_policy.md_0"
+          ],
+          "scores": {
+            "1": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.0
+            },
+            "3": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.0
+            },
+            "5": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.0
+            }
+          }
+        },
+        {
+          "id": "mix-10",
+          "category": "mixed",
+          "retrieved": [
+            "security_incident_policy.md_4",
+            "orbital_api_reference.md_3",
+            "security_incident_policy.md_3",
+            "security_incident_policy.md_1",
+            "acme_employee_handbook.md_4"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-11",
+          "category": "mixed",
+          "retrieved": [
+            "acme_employee_handbook.md_0",
+            "acme_employee_handbook.md_1",
+            "acme_employee_handbook.md_5",
+            "acme_employee_handbook.md_2",
+            "orbital_api_reference.md_0"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-12",
+          "category": "mixed",
+          "retrieved": [
+            "acme_employee_handbook.md_0",
+            "security_incident_policy.md_4",
+            "orbital_api_reference.md_4",
+            "orbital_api_reference.md_3",
+            "orbital_api_reference.md_0"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        }
+      ]
+    },
+    "Hybrid (a=0.6)": {
+      "alpha": 0.6,
+      "use_reranker": false,
+      "summary": {
+        "1": {
+          "precision": 0.8333,
+          "recall": 0.7667,
+          "hit": 0.8333,
+          "mrr": 0.9056
+        },
+        "3": {
+          "precision": 0.3667,
+          "recall": 0.9833,
+          "hit": 1.0,
+          "mrr": 0.9056
+        },
+        "5": {
+          "precision": 0.22,
+          "recall": 0.9833,
+          "hit": 1.0,
+          "mrr": 0.9056
+        }
+      },
+      "per_question": [
+        {
+          "id": "lex-01",
+          "category": "lexical",
+          "retrieved": [
+            "orbital_api_reference.md_2",
+            "orbital_api_reference.md_1",
+            "orbital_api_reference.md_0",
+            "orbital_api_reference.md_3",
+            "security_incident_policy.md_4"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 0.5,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.6666666666666666,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.4,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "lex-02",
+          "category": "lexical",
+          "retrieved": [
+            "orbital_api_reference.md_2",
+            "orbital_api_reference.md_1",
+            "orbital_api_reference.md_3",
+            "security_incident_policy.md_4",
+            "security_incident_policy.md_1"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 0.5,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.6666666666666666,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.4,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "lex-03",
+          "category": "lexical",
+          "retrieved": [
+            "orbital_api_reference.md_1",
+            "orbital_api_reference.md_2",
+            "security_incident_policy.md_4",
+            "orbital_api_reference.md_3",
+            "orbital_api_reference.md_4"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 0.5,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.6666666666666666,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.4,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "lex-04",
+          "category": "lexical",
+          "retrieved": [
+            "orbital_api_reference.md_4",
+            "orbital_api_reference.md_3",
+            "orbital_api_reference.md_0",
+            "security_incident_policy.md_1",
+            "orbital_api_reference.md_2"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "lex-05",
+          "category": "lexical",
+          "retrieved": [
+            "orbital_api_reference.md_0",
+            "orbital_api_reference.md_4",
+            "orbital_api_reference.md_3",
+            "security_incident_policy.md_1",
+            "acme_employee_handbook.md_3"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "lex-06",
+          "category": "lexical",
+          "retrieved": [
+            "orbital_api_reference.md_2",
+            "orbital_api_reference.md_1",
+            "security_incident_policy.md_1",
+            "orbital_api_reference.md_0",
+            "orbital_api_reference.md_3"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "lex-07",
+          "category": "lexical",
+          "retrieved": [
+            "security_incident_policy.md_2",
+            "security_incident_policy.md_0",
+            "security_incident_policy.md_1",
+            "security_incident_policy.md_3",
+            "orbital_api_reference.md_4"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "lex-08",
+          "category": "lexical",
+          "retrieved": [
+            "security_incident_policy.md_4",
+            "security_incident_policy.md_0",
+            "security_incident_policy.md_2",
+            "security_incident_policy.md_3",
+            "security_incident_policy.md_1"
+          ],
+          "scores": {
+            "1": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.5
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 0.5
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 0.5
+            }
+          }
+        },
+        {
+          "id": "sem-01",
+          "category": "semantic",
+          "retrieved": [
+            "acme_employee_handbook.md_5",
+            "acme_employee_handbook.md_1",
+            "acme_employee_handbook.md_3",
+            "acme_employee_handbook.md_2",
+            "acme_employee_handbook.md_4"
+          ],
+          "scores": {
+            "1": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.5
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 0.5
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 0.5
+            }
+          }
+        },
+        {
+          "id": "sem-02",
+          "category": "semantic",
+          "retrieved": [
+            "acme_employee_handbook.md_1",
+            "acme_employee_handbook.md_2",
+            "acme_employee_handbook.md_3",
+            "acme_employee_handbook.md_5",
+            "acme_employee_handbook.md_4"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "sem-03",
+          "category": "semantic",
+          "retrieved": [
+            "acme_employee_handbook.md_2",
+            "security_incident_policy.md_4",
+            "orbital_api_reference.md_0",
+            "orbital_api_reference.md_4",
+            "acme_employee_handbook.md_5"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "sem-04",
+          "category": "semantic",
+          "retrieved": [
+            "acme_employee_handbook.md_2",
+            "acme_employee_handbook.md_5",
+            "acme_employee_handbook.md_1",
+            "security_incident_policy.md_1",
+            "security_incident_policy.md_4"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "sem-05",
+          "category": "semantic",
+          "retrieved": [
+            "acme_employee_handbook.md_0",
+            "acme_employee_handbook.md_4",
+            "acme_employee_handbook.md_2",
+            "security_incident_policy.md_2",
+            "acme_employee_handbook.md_1"
+          ],
+          "scores": {
+            "1": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.5
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 0.5
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 0.5
+            }
+          }
+        },
+        {
+          "id": "sem-06",
+          "category": "semantic",
+          "retrieved": [
+            "orbital_api_reference.md_0",
+            "acme_employee_handbook.md_2",
+            "acme_employee_handbook.md_5",
+            "acme_employee_handbook.md_0",
+            "acme_employee_handbook.md_1"
+          ],
+          "scores": {
+            "1": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.3333333333333333
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 0.3333333333333333
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 0.3333333333333333
+            }
+          }
+        },
+        {
+          "id": "sem-07",
+          "category": "semantic",
+          "retrieved": [
+            "security_incident_policy.md_3",
+            "security_incident_policy.md_4",
+            "security_incident_policy.md_1",
+            "security_incident_policy.md_2",
+            "security_incident_policy.md_0"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "sem-08",
+          "category": "semantic",
+          "retrieved": [
+            "security_incident_policy.md_3",
+            "security_incident_policy.md_4",
+            "security_incident_policy.md_2",
+            "security_incident_policy.md_1",
+            "orbital_api_reference.md_1"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "sem-09",
+          "category": "semantic",
+          "retrieved": [
+            "security_incident_policy.md_2",
+            "security_incident_policy.md_0",
+            "security_incident_policy.md_3",
+            "security_incident_policy.md_1",
+            "acme_employee_handbook.md_1"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "sem-10",
+          "category": "semantic",
+          "retrieved": [
+            "acme_employee_handbook.md_1",
+            "acme_employee_handbook.md_0",
+            "acme_employee_handbook.md_2",
+            "acme_employee_handbook.md_5",
+            "orbital_api_reference.md_2"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-01",
+          "category": "mixed",
+          "retrieved": [
+            "orbital_api_reference.md_0",
+            "orbital_api_reference.md_4",
+            "orbital_api_reference.md_1",
+            "orbital_api_reference.md_2",
+            "orbital_api_reference.md_3"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-02",
+          "category": "mixed",
+          "retrieved": [
+            "orbital_api_reference.md_0",
+            "acme_employee_handbook.md_1",
+            "orbital_api_reference.md_2",
+            "acme_employee_handbook.md_0",
+            "security_incident_policy.md_1"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-03",
+          "category": "mixed",
+          "retrieved": [
+            "orbital_api_reference.md_3",
+            "orbital_api_reference.md_0",
+            "orbital_api_reference.md_2",
+            "orbital_api_reference.md_4",
+            "security_incident_policy.md_2"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-04",
+          "category": "mixed",
+          "retrieved": [
+            "orbital_api_reference.md_4",
+            "orbital_api_reference.md_3",
+            "orbital_api_reference.md_2",
+            "security_incident_policy.md_4",
+            "security_incident_policy.md_1"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-05",
+          "category": "mixed",
+          "retrieved": [
+            "orbital_api_reference.md_3",
+            "security_incident_policy.md_3",
+            "orbital_api_reference.md_0",
+            "acme_employee_handbook.md_1",
+            "orbital_api_reference.md_2"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 0.5,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 0.5,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 0.5,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-06",
+          "category": "mixed",
+          "retrieved": [
+            "acme_employee_handbook.md_3",
+            "acme_employee_handbook.md_5",
+            "acme_employee_handbook.md_1",
+            "acme_employee_handbook.md_4",
+            "orbital_api_reference.md_1"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-07",
+          "category": "mixed",
+          "retrieved": [
+            "acme_employee_handbook.md_3",
+            "acme_employee_handbook.md_0",
+            "acme_employee_handbook.md_2",
+            "acme_employee_handbook.md_5",
+            "acme_employee_handbook.md_4"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-08",
+          "category": "mixed",
+          "retrieved": [
+            "acme_employee_handbook.md_4",
+            "acme_employee_handbook.md_3",
+            "acme_employee_handbook.md_0",
+            "acme_employee_handbook.md_1",
+            "acme_employee_handbook.md_5"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-09",
+          "category": "mixed",
+          "retrieved": [
+            "security_incident_policy.md_2",
+            "security_incident_policy.md_4",
+            "security_incident_policy.md_1",
+            "security_incident_policy.md_3",
+            "security_incident_policy.md_0"
+          ],
+          "scores": {
+            "1": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.3333333333333333
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 0.3333333333333333
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 0.3333333333333333
+            }
+          }
+        },
+        {
+          "id": "mix-10",
+          "category": "mixed",
+          "retrieved": [
+            "security_incident_policy.md_4",
+            "security_incident_policy.md_3",
+            "security_incident_policy.md_1",
+            "security_incident_policy.md_0",
+            "acme_employee_handbook.md_4"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-11",
+          "category": "mixed",
+          "retrieved": [
+            "acme_employee_handbook.md_0",
+            "acme_employee_handbook.md_1",
+            "acme_employee_handbook.md_5",
+            "acme_employee_handbook.md_2",
+            "acme_employee_handbook.md_3"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-12",
+          "category": "mixed",
+          "retrieved": [
+            "acme_employee_handbook.md_0",
+            "acme_employee_handbook.md_5",
+            "acme_employee_handbook.md_4",
+            "acme_employee_handbook.md_1",
+            "security_incident_policy.md_1"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        }
+      ]
+    },
+    "Hybrid + rerank": {
+      "alpha": 0.6,
+      "use_reranker": true,
+      "summary": {
+        "1": {
+          "precision": 0.9333,
+          "recall": 0.8667,
+          "hit": 0.9333,
+          "mrr": 0.95
+        },
+        "3": {
+          "precision": 0.3556,
+          "recall": 0.95,
+          "hit": 0.9667,
+          "mrr": 0.95
+        },
+        "5": {
+          "precision": 0.2133,
+          "recall": 0.95,
+          "hit": 0.9667,
+          "mrr": 0.95
+        }
+      },
+      "per_question": [
+        {
+          "id": "lex-01",
+          "category": "lexical",
+          "retrieved": [
+            "orbital_api_reference.md_2",
+            "orbital_api_reference.md_0",
+            "orbital_api_reference.md_1",
+            "orbital_api_reference.md_3",
+            "orbital_api_reference.md_4"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 0.5,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.6666666666666666,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.4,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "lex-02",
+          "category": "lexical",
+          "retrieved": [
+            "orbital_api_reference.md_3",
+            "orbital_api_reference.md_1",
+            "orbital_api_reference.md_2",
+            "orbital_api_reference.md_0",
+            "orbital_api_reference.md_4"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 0.5,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.6666666666666666,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.4,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "lex-03",
+          "category": "lexical",
+          "retrieved": [
+            "orbital_api_reference.md_1",
+            "orbital_api_reference.md_2",
+            "orbital_api_reference.md_3",
+            "security_incident_policy.md_1",
+            "orbital_api_reference.md_4"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 0.5,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.6666666666666666,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.4,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "lex-04",
+          "category": "lexical",
+          "retrieved": [
+            "orbital_api_reference.md_4",
+            "orbital_api_reference.md_0",
+            "orbital_api_reference.md_3",
+            "orbital_api_reference.md_2",
+            "orbital_api_reference.md_1"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "lex-05",
+          "category": "lexical",
+          "retrieved": [
+            "orbital_api_reference.md_0",
+            "acme_employee_handbook.md_3",
+            "acme_employee_handbook.md_5",
+            "security_incident_policy.md_4",
+            "orbital_api_reference.md_3"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "lex-06",
+          "category": "lexical",
+          "retrieved": [
+            "orbital_api_reference.md_2",
+            "orbital_api_reference.md_1",
+            "orbital_api_reference.md_3",
+            "orbital_api_reference.md_0",
+            "security_incident_policy.md_4"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "lex-07",
+          "category": "lexical",
+          "retrieved": [
+            "security_incident_policy.md_2",
+            "security_incident_policy.md_0",
+            "acme_employee_handbook.md_0",
+            "security_incident_policy.md_1",
+            "security_incident_policy.md_3"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "lex-08",
+          "category": "lexical",
+          "retrieved": [
+            "security_incident_policy.md_0",
+            "security_incident_policy.md_4",
+            "security_incident_policy.md_2",
+            "security_incident_policy.md_3",
+            "security_incident_policy.md_1"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "sem-01",
+          "category": "semantic",
+          "retrieved": [
+            "acme_employee_handbook.md_1",
+            "acme_employee_handbook.md_5",
+            "acme_employee_handbook.md_3",
+            "acme_employee_handbook.md_2",
+            "acme_employee_handbook.md_4"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "sem-02",
+          "category": "semantic",
+          "retrieved": [
+            "acme_employee_handbook.md_1",
+            "acme_employee_handbook.md_2",
+            "acme_employee_handbook.md_3",
+            "acme_employee_handbook.md_0",
+            "acme_employee_handbook.md_4"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "sem-03",
+          "category": "semantic",
+          "retrieved": [
+            "acme_employee_handbook.md_2",
+            "acme_employee_handbook.md_5",
+            "orbital_api_reference.md_0",
+            "security_incident_policy.md_0",
+            "security_incident_policy.md_2"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "sem-04",
+          "category": "semantic",
+          "retrieved": [
+            "acme_employee_handbook.md_2",
+            "acme_employee_handbook.md_0",
+            "acme_employee_handbook.md_5",
+            "acme_employee_handbook.md_1",
+            "security_incident_policy.md_0"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "sem-05",
+          "category": "semantic",
+          "retrieved": [
+            "acme_employee_handbook.md_0",
+            "acme_employee_handbook.md_5",
+            "acme_employee_handbook.md_1",
+            "acme_employee_handbook.md_3",
+            "acme_employee_handbook.md_2"
+          ],
+          "scores": {
+            "1": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.0
+            },
+            "3": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.0
+            },
+            "5": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.0
+            }
+          }
+        },
+        {
+          "id": "sem-06",
+          "category": "semantic",
+          "retrieved": [
+            "acme_employee_handbook.md_5",
+            "acme_employee_handbook.md_2",
+            "acme_employee_handbook.md_0",
+            "orbital_api_reference.md_0",
+            "acme_employee_handbook.md_1"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "sem-07",
+          "category": "semantic",
+          "retrieved": [
+            "security_incident_policy.md_3",
+            "security_incident_policy.md_4",
+            "security_incident_policy.md_1",
+            "acme_employee_handbook.md_3",
+            "security_incident_policy.md_0"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "sem-08",
+          "category": "semantic",
+          "retrieved": [
+            "security_incident_policy.md_3",
+            "security_incident_policy.md_4",
+            "security_incident_policy.md_2",
+            "security_incident_policy.md_1",
+            "orbital_api_reference.md_1"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "sem-09",
+          "category": "semantic",
+          "retrieved": [
+            "security_incident_policy.md_2",
+            "security_incident_policy.md_3",
+            "security_incident_policy.md_0",
+            "acme_employee_handbook.md_0",
+            "security_incident_policy.md_1"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "sem-10",
+          "category": "semantic",
+          "retrieved": [
+            "acme_employee_handbook.md_1",
+            "acme_employee_handbook.md_2",
+            "acme_employee_handbook.md_0",
+            "acme_employee_handbook.md_5",
+            "acme_employee_handbook.md_3"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-01",
+          "category": "mixed",
+          "retrieved": [
+            "orbital_api_reference.md_0",
+            "orbital_api_reference.md_4",
+            "acme_employee_handbook.md_3",
+            "orbital_api_reference.md_2",
+            "orbital_api_reference.md_1"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-02",
+          "category": "mixed",
+          "retrieved": [
+            "orbital_api_reference.md_0",
+            "orbital_api_reference.md_2",
+            "security_incident_policy.md_1",
+            "acme_employee_handbook.md_2",
+            "acme_employee_handbook.md_3"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-03",
+          "category": "mixed",
+          "retrieved": [
+            "orbital_api_reference.md_3",
+            "orbital_api_reference.md_0",
+            "security_incident_policy.md_2",
+            "security_incident_policy.md_3",
+            "orbital_api_reference.md_4"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-04",
+          "category": "mixed",
+          "retrieved": [
+            "orbital_api_reference.md_4",
+            "orbital_api_reference.md_3",
+            "acme_employee_handbook.md_3",
+            "security_incident_policy.md_4",
+            "orbital_api_reference.md_2"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-05",
+          "category": "mixed",
+          "retrieved": [
+            "orbital_api_reference.md_3",
+            "orbital_api_reference.md_2",
+            "orbital_api_reference.md_0",
+            "acme_employee_handbook.md_2",
+            "acme_employee_handbook.md_1"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 0.5,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 0.5,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 0.5,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-06",
+          "category": "mixed",
+          "retrieved": [
+            "acme_employee_handbook.md_3",
+            "acme_employee_handbook.md_1",
+            "acme_employee_handbook.md_5",
+            "acme_employee_handbook.md_4",
+            "acme_employee_handbook.md_2"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-07",
+          "category": "mixed",
+          "retrieved": [
+            "acme_employee_handbook.md_3",
+            "acme_employee_handbook.md_5",
+            "acme_employee_handbook.md_2",
+            "acme_employee_handbook.md_0",
+            "acme_employee_handbook.md_1"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-08",
+          "category": "mixed",
+          "retrieved": [
+            "acme_employee_handbook.md_4",
+            "acme_employee_handbook.md_0",
+            "security_incident_policy.md_1",
+            "orbital_api_reference.md_0",
+            "orbital_api_reference.md_1"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-09",
+          "category": "mixed",
+          "retrieved": [
+            "security_incident_policy.md_1",
+            "security_incident_policy.md_4",
+            "security_incident_policy.md_2",
+            "security_incident_policy.md_3",
+            "security_incident_policy.md_0"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-10",
+          "category": "mixed",
+          "retrieved": [
+            "security_incident_policy.md_4",
+            "security_incident_policy.md_3",
+            "security_incident_policy.md_1",
+            "acme_employee_handbook.md_4",
+            "security_incident_policy.md_0"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        },
+        {
+          "id": "mix-11",
+          "category": "mixed",
+          "retrieved": [
+            "acme_employee_handbook.md_1",
+            "acme_employee_handbook.md_0",
+            "acme_employee_handbook.md_3",
+            "acme_employee_handbook.md_2",
+            "acme_employee_handbook.md_4"
+          ],
+          "scores": {
+            "1": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "hit": 0.0,
+              "mrr": 0.5
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 0.5
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 0.5
+            }
+          }
+        },
+        {
+          "id": "mix-12",
+          "category": "mixed",
+          "retrieved": [
+            "acme_employee_handbook.md_0",
+            "security_incident_policy.md_1",
+            "acme_employee_handbook.md_4",
+            "security_incident_policy.md_0",
+            "acme_employee_handbook.md_2"
+          ],
+          "scores": {
+            "1": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "3": {
+              "precision": 0.3333333333333333,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            },
+            "5": {
+              "precision": 0.2,
+              "recall": 1.0,
+              "hit": 1.0,
+              "mrr": 1.0
+            }
+          }
+        }
+      ]
+    }
+  },
+  "confidence": {
+    "answerable": {
+      "rerank_mean": 0.6259,
+      "rerank_median": 0.9774,
+      "rerank_p10": 0.0002,
+      "vector_mean": 0.4606,
+      "vector_min": 0.2216,
+      "n": 30
+    },
+    "unanswerable": {
+      "rerank_mean": 0.03,
+      "rerank_max": 0.1242,
+      "vector_mean": 0.2942,
+      "vector_max": 0.5405,
+      "n": 5
+    },
+    "sweep": [
+      {
+        "t_rerank": 0.02,
+        "t_vector": 0.25,
+        "rerank_only": false,
+        "correct_abstain": 2,
+        "correct_abstain_rate": 0.4,
+        "false_abstain": 0,
+        "false_abstain_rate": 0.0
+      },
+      {
+        "t_rerank": 0.02,
+        "t_vector": 0.3,
+        "rerank_only": false,
+        "correct_abstain": 3,
+        "correct_abstain_rate": 0.6,
+        "false_abstain": 4,
+        "false_abstain_rate": 0.1333
+      },
+      {
+        "t_rerank": 0.02,
+        "t_vector": 0.35,
+        "rerank_only": false,
+        "correct_abstain": 3,
+        "correct_abstain_rate": 0.6,
+        "false_abstain": 4,
+        "false_abstain_rate": 0.1333
+      },
+      {
+        "t_rerank": 0.02,
+        "t_vector": 0.4,
+        "rerank_only": false,
+        "correct_abstain": 3,
+        "correct_abstain_rate": 0.6,
+        "false_abstain": 6,
+        "false_abstain_rate": 0.2
+      },
+      {
+        "t_rerank": 0.02,
+        "t_vector": 1.01,
+        "rerank_only": true,
+        "correct_abstain": 3,
+        "correct_abstain_rate": 0.6,
+        "false_abstain": 8,
+        "false_abstain_rate": 0.2667
+      },
+      {
+        "t_rerank": 0.05,
+        "t_vector": 0.25,
+        "rerank_only": false,
+        "correct_abstain": 2,
+        "correct_abstain_rate": 0.4,
+        "false_abstain": 0,
+        "false_abstain_rate": 0.0
+      },
+      {
+        "t_rerank": 0.05,
+        "t_vector": 0.3,
+        "rerank_only": false,
+        "correct_abstain": 3,
+        "correct_abstain_rate": 0.6,
+        "false_abstain": 4,
+        "false_abstain_rate": 0.1333
+      },
+      {
+        "t_rerank": 0.05,
+        "t_vector": 0.35,
+        "rerank_only": false,
+        "correct_abstain": 3,
+        "correct_abstain_rate": 0.6,
+        "false_abstain": 4,
+        "false_abstain_rate": 0.1333
+      },
+      {
+        "t_rerank": 0.05,
+        "t_vector": 0.4,
+        "rerank_only": false,
+        "correct_abstain": 3,
+        "correct_abstain_rate": 0.6,
+        "false_abstain": 6,
+        "false_abstain_rate": 0.2
+      },
+      {
+        "t_rerank": 0.05,
+        "t_vector": 1.01,
+        "rerank_only": true,
+        "correct_abstain": 4,
+        "correct_abstain_rate": 0.8,
+        "false_abstain": 9,
+        "false_abstain_rate": 0.3
+      },
+      {
+        "t_rerank": 0.1,
+        "t_vector": 0.25,
+        "rerank_only": false,
+        "correct_abstain": 2,
+        "correct_abstain_rate": 0.4,
+        "false_abstain": 0,
+        "false_abstain_rate": 0.0
+      },
+      {
+        "t_rerank": 0.1,
+        "t_vector": 0.3,
+        "rerank_only": false,
+        "correct_abstain": 3,
+        "correct_abstain_rate": 0.6,
+        "false_abstain": 4,
+        "false_abstain_rate": 0.1333
+      },
+      {
+        "t_rerank": 0.1,
+        "t_vector": 0.35,
+        "rerank_only": false,
+        "correct_abstain": 3,
+        "correct_abstain_rate": 0.6,
+        "false_abstain": 4,
+        "false_abstain_rate": 0.1333
+      },
+      {
+        "t_rerank": 0.1,
+        "t_vector": 0.4,
+        "rerank_only": false,
+        "correct_abstain": 3,
+        "correct_abstain_rate": 0.6,
+        "false_abstain": 6,
+        "false_abstain_rate": 0.2
+      },
+      {
+        "t_rerank": 0.1,
+        "t_vector": 1.01,
+        "rerank_only": true,
+        "correct_abstain": 4,
+        "correct_abstain_rate": 0.8,
+        "false_abstain": 9,
+        "false_abstain_rate": 0.3
+      },
+      {
+        "t_rerank": 0.15,
+        "t_vector": 0.25,
+        "rerank_only": false,
+        "correct_abstain": 2,
+        "correct_abstain_rate": 0.4,
+        "false_abstain": 0,
+        "false_abstain_rate": 0.0
+      },
+      {
+        "t_rerank": 0.15,
+        "t_vector": 0.3,
+        "rerank_only": false,
+        "correct_abstain": 3,
+        "correct_abstain_rate": 0.6,
+        "false_abstain": 4,
+        "false_abstain_rate": 0.1333
+      },
+      {
+        "t_rerank": 0.15,
+        "t_vector": 0.35,
+        "rerank_only": false,
+        "correct_abstain": 3,
+        "correct_abstain_rate": 0.6,
+        "false_abstain": 4,
+        "false_abstain_rate": 0.1333
+      },
+      {
+        "t_rerank": 0.15,
+        "t_vector": 0.4,
+        "rerank_only": false,
+        "correct_abstain": 3,
+        "correct_abstain_rate": 0.6,
+        "false_abstain": 6,
+        "false_abstain_rate": 0.2
+      },
+      {
+        "t_rerank": 0.15,
+        "t_vector": 1.01,
+        "rerank_only": true,
+        "correct_abstain": 5,
+        "correct_abstain_rate": 1.0,
+        "false_abstain": 9,
+        "false_abstain_rate": 0.3
+      },
+      {
+        "t_rerank": 0.2,
+        "t_vector": 0.25,
+        "rerank_only": false,
+        "correct_abstain": 2,
+        "correct_abstain_rate": 0.4,
+        "false_abstain": 0,
+        "false_abstain_rate": 0.0
+      },
+      {
+        "t_rerank": 0.2,
+        "t_vector": 0.3,
+        "rerank_only": false,
+        "correct_abstain": 3,
+        "correct_abstain_rate": 0.6,
+        "false_abstain": 4,
+        "false_abstain_rate": 0.1333
+      },
+      {
+        "t_rerank": 0.2,
+        "t_vector": 0.35,
+        "rerank_only": false,
+        "correct_abstain": 3,
+        "correct_abstain_rate": 0.6,
+        "false_abstain": 4,
+        "false_abstain_rate": 0.1333
+      },
+      {
+        "t_rerank": 0.2,
+        "t_vector": 0.4,
+        "rerank_only": false,
+        "correct_abstain": 3,
+        "correct_abstain_rate": 0.6,
+        "false_abstain": 6,
+        "false_abstain_rate": 0.2
+      },
+      {
+        "t_rerank": 0.2,
+        "t_vector": 1.01,
+        "rerank_only": true,
+        "correct_abstain": 5,
+        "correct_abstain_rate": 1.0,
+        "false_abstain": 9,
+        "false_abstain_rate": 0.3
+      },
+      {
+        "t_rerank": 0.3,
+        "t_vector": 0.25,
+        "rerank_only": false,
+        "correct_abstain": 2,
+        "correct_abstain_rate": 0.4,
+        "false_abstain": 0,
+        "false_abstain_rate": 0.0
+      },
+      {
+        "t_rerank": 0.3,
+        "t_vector": 0.3,
+        "rerank_only": false,
+        "correct_abstain": 3,
+        "correct_abstain_rate": 0.6,
+        "false_abstain": 4,
+        "false_abstain_rate": 0.1333
+      },
+      {
+        "t_rerank": 0.3,
+        "t_vector": 0.35,
+        "rerank_only": false,
+        "correct_abstain": 3,
+        "correct_abstain_rate": 0.6,
+        "false_abstain": 4,
+        "false_abstain_rate": 0.1333
+      },
+      {
+        "t_rerank": 0.3,
+        "t_vector": 0.4,
+        "rerank_only": false,
+        "correct_abstain": 3,
+        "correct_abstain_rate": 0.6,
+        "false_abstain": 7,
+        "false_abstain_rate": 0.2333
+      },
+      {
+        "t_rerank": 0.3,
+        "t_vector": 1.01,
+        "rerank_only": true,
+        "correct_abstain": 5,
+        "correct_abstain_rate": 1.0,
+        "false_abstain": 11,
+        "false_abstain_rate": 0.3667
+      }
+    ],
+    "recommended": {
+      "t_rerank": 0.02,
+      "t_vector": 0.3,
+      "rerank_only": false,
+      "correct_abstain": 3,
+      "correct_abstain_rate": 0.6,
+      "false_abstain": 4,
+      "false_abstain_rate": 0.1333
+    },
+    "configured": {
+      "t_rerank": 0.15,
+      "t_vector": 0.3,
+      "correct_abstain": 3,
+      "false_abstain": 4
+    },
+    "per_question": [
+      {
+        "id": "lex-01",
+        "category": "lexical",
+        "answerable": true,
+        "confidence": 0.9774,
+        "semantic_confidence": 0.3517
+      },
+      {
+        "id": "lex-02",
+        "category": "lexical",
+        "answerable": true,
+        "confidence": 0.988,
+        "semantic_confidence": 0.4016
+      },
+      {
+        "id": "lex-03",
+        "category": "lexical",
+        "answerable": true,
+        "confidence": 0.9672,
+        "semantic_confidence": 0.2216
+      },
+      {
+        "id": "lex-04",
+        "category": "lexical",
+        "answerable": true,
+        "confidence": 0.9993,
+        "semantic_confidence": 0.6565
+      },
+      {
+        "id": "lex-05",
+        "category": "lexical",
+        "answerable": true,
+        "confidence": 0.9652,
+        "semantic_confidence": 0.4263
+      },
+      {
+        "id": "lex-06",
+        "category": "lexical",
+        "answerable": true,
+        "confidence": 0.9794,
+        "semantic_confidence": 0.3792
+      },
+      {
+        "id": "lex-07",
+        "category": "lexical",
+        "answerable": true,
+        "confidence": 0.998,
+        "semantic_confidence": 0.4388
+      },
+      {
+        "id": "lex-08",
+        "category": "lexical",
+        "answerable": true,
+        "confidence": 0.9955,
+        "semantic_confidence": 0.5752
+      },
+      {
+        "id": "sem-01",
+        "category": "semantic",
+        "answerable": true,
+        "confidence": 0.0078,
+        "semantic_confidence": 0.294
+      },
+      {
+        "id": "sem-02",
+        "category": "semantic",
+        "answerable": true,
+        "confidence": 0.0047,
+        "semantic_confidence": 0.4447
+      },
+      {
+        "id": "sem-03",
+        "category": "semantic",
+        "answerable": true,
+        "confidence": 0.0,
+        "semantic_confidence": 0.2577
+      },
+      {
+        "id": "sem-04",
+        "category": "semantic",
+        "answerable": true,
+        "confidence": 0.0002,
+        "semantic_confidence": 0.273
+      },
+      {
+        "id": "sem-05",
+        "category": "semantic",
+        "answerable": true,
+        "confidence": 0.0003,
+        "semantic_confidence": 0.2964
+      },
+      {
+        "id": "sem-06",
+        "category": "semantic",
+        "answerable": true,
+        "confidence": 0.0004,
+        "semantic_confidence": 0.3879
+      },
+      {
+        "id": "sem-07",
+        "category": "semantic",
+        "answerable": true,
+        "confidence": 0.2796,
+        "semantic_confidence": 0.5207
+      },
+      {
+        "id": "sem-08",
+        "category": "semantic",
+        "answerable": true,
+        "confidence": 0.0,
+        "semantic_confidence": 0.4235
+      },
+      {
+        "id": "sem-09",
+        "category": "semantic",
+        "answerable": true,
+        "confidence": 0.0,
+        "semantic_confidence": 0.3893
+      },
+      {
+        "id": "sem-10",
+        "category": "semantic",
+        "answerable": true,
+        "confidence": 0.2148,
+        "semantic_confidence": 0.3763
+      },
+      {
+        "id": "mix-01",
+        "category": "mixed",
+        "answerable": true,
+        "confidence": 0.9819,
+        "semantic_confidence": 0.6435
+      },
+      {
+        "id": "mix-02",
+        "category": "mixed",
+        "answerable": true,
+        "confidence": 0.9991,
+        "semantic_confidence": 0.5111
+      },
+      {
+        "id": "mix-03",
+        "category": "mixed",
+        "answerable": true,
+        "confidence": 0.4383,
+        "semantic_confidence": 0.5603
+      },
+      {
+        "id": "mix-04",
+        "category": "mixed",
+        "answerable": true,
+        "confidence": 0.9882,
+        "semantic_confidence": 0.6363
+      },
+      {
+        "id": "mix-05",
+        "category": "mixed",
+        "answerable": true,
+        "confidence": 0.9986,
+        "semantic_confidence": 0.4664
+      },
+      {
+        "id": "mix-06",
+        "category": "mixed",
+        "answerable": true,
+        "confidence": 0.9696,
+        "semantic_confidence": 0.5322
+      },
+      {
+        "id": "mix-07",
+        "category": "mixed",
+        "answerable": true,
+        "confidence": 0.9985,
+        "semantic_confidence": 0.6051
+      },
+      {
+        "id": "mix-08",
+        "category": "mixed",
+        "answerable": true,
+        "confidence": 0.994,
+        "semantic_confidence": 0.6407
+      },
+      {
+        "id": "mix-09",
+        "category": "mixed",
+        "answerable": true,
+        "confidence": 0.995,
+        "semantic_confidence": 0.6051
+      },
+      {
+        "id": "mix-10",
+        "category": "mixed",
+        "answerable": true,
+        "confidence": 0.9996,
+        "semantic_confidence": 0.5457
+      },
+      {
+        "id": "mix-11",
+        "category": "mixed",
+        "answerable": true,
+        "confidence": 0.0405,
+        "semantic_confidence": 0.423
+      },
+      {
+        "id": "mix-12",
+        "category": "mixed",
+        "answerable": true,
+        "confidence": 0.9971,
+        "semantic_confidence": 0.5329
+      },
+      {
+        "id": "una-01",
+        "category": "unanswerable",
+        "answerable": false,
+        "confidence": 0.1242,
+        "semantic_confidence": 0.48
+      },
+      {
+        "id": "una-02",
+        "category": "unanswerable",
+        "answerable": false,
+        "confidence": 0.0005,
+        "semantic_confidence": 0.2625
+      },
+      {
+        "id": "una-03",
+        "category": "unanswerable",
+        "answerable": false,
+        "confidence": 0.0254,
+        "semantic_confidence": 0.5405
+      },
+      {
+        "id": "una-04",
+        "category": "unanswerable",
+        "answerable": false,
+        "confidence": 0.0001,
+        "semantic_confidence": 0.1991
+      },
+      {
+        "id": "una-05",
+        "category": "unanswerable",
+        "answerable": false,
+        "confidence": 0.0,
+        "semantic_confidence": -0.0113
+      }
+    ]
+  },
+  "per_category": {
+    "lexical": {
+      "vector_only_hit@3": 0.75,
+      "bm25_only_hit@3": 1.0,
+      "hybrid_rerank_hit@3": 1.0,
+      "n": 8
+    },
+    "semantic": {
+      "vector_only_hit@3": 1.0,
+      "bm25_only_hit@3": 0.6,
+      "hybrid_rerank_hit@3": 0.9,
+      "n": 10
+    },
+    "mixed": {
+      "vector_only_hit@3": 1.0,
+      "bm25_only_hit@3": 0.9167,
+      "hybrid_rerank_hit@3": 1.0,
+      "n": 12
+    }
+  }
+}

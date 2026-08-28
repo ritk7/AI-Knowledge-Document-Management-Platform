@@ -1,0 +1,57 @@
+# ---- Secrets ----
+.env
+.env.*
+!.env.example
+
+# ---- Python ----
+venv/
+.venv/
+env/
+ENV/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ---- Runtime state (regenerated at run time) ----
+backend/data/uploads/*
+!backend/data/uploads/.gitkeep
+backend/data/chroma/*
+!backend/data/chroma/.gitkeep
+data/uploads/
+data/chroma/
+
+# ---- Model / HuggingFace caches ----
+# sentence-transformers and transformers download to ~/.cache by default, but
+# HF_HOME / TRANSFORMERS_CACHE / SENTENCE_TRANSFORMERS_HOME can point inside the
+# repo -- these patterns keep multi-hundred-MB weights out of git either way.
+.cache/
+**/.cache/
+.huggingface/
+**/.huggingface/
+huggingface/
+hf_cache/
+models/
+*.safetensors
+*.bin
+*.onnx
+*.pt
+*.ckpt
+
+# ---- Editors / OS ----
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# NOTE: benchmark and eval outputs (ann_benchmark.png, *_results.md/json) are
+# intentionally NOT ignored -- the README cites their numbers, so they are
+# committed as reproducible evidence.
