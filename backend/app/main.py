@@ -57,5 +57,5 @@ def get_config() -> dict:
         "rerank_pool": settings.rerank_pool,
         "embedding_model": settings.embedding_model,
         "reranker_model": settings.reranker_model,
-        "claude_model": settings.claude_model,
+        "generation_model": f"{settings.ollama_model} (ollama, local)",
     }

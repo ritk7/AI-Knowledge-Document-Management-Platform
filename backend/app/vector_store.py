@@ -23,6 +23,15 @@ def get_collection():
     )
 
 
+# Chroma rejects a single .add() call above its own internal batch cap
+# (observed live: "Batch size of 42857 is greater than max batch size of
+# 5461" -- on a 34MB upload that took 58 minutes to embed before failing at
+# the very last step). The cap is Chroma-version/backend-dependent, so this
+# splits into conservatively-sized batches rather than hard-coding the
+# observed number.
+_CHROMA_BATCH_SIZE = 2000
+
+
 def add_chunks(
     document_id: str,
     filename: str,
@@ -31,21 +40,27 @@ def add_chunks(
     num_pages: int,
 ) -> None:
     collection = get_collection()
-    collection.add(
-        ids=[f"{document_id}_{c.chunk_index}" for c in chunks],
-        embeddings=embeddings,
-        documents=[c.text for c in chunks],
-        metadatas=[
-            {
-                "document_id": document_id,
-                "filename": filename,
-                "chunk_index": c.chunk_index,
-                "page": c.page,
-                "num_pages": num_pages,
-            }
-            for c in chunks
-        ],
-    )
+    ids = [f"{document_id}_{c.chunk_index}" for c in chunks]
+    documents = [c.text for c in chunks]
+    metadatas = [
+        {
+            "document_id": document_id,
+            "filename": filename,
+            "chunk_index": c.chunk_index,
+            "page": c.page,
+            "num_pages": num_pages,
+        }
+        for c in chunks
+    ]
+
+    for start in range(0, len(chunks), _CHROMA_BATCH_SIZE):
+        end = start + _CHROMA_BATCH_SIZE
+        collection.add(
+            ids=ids[start:end],
+            embeddings=embeddings[start:end],
+            documents=documents[start:end],
+            metadatas=metadatas[start:end],
+        )
 
 
 def query_chunks(

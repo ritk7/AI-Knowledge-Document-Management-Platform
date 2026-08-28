@@ -18,6 +18,7 @@ from pathlib import Path
 
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from pypdf import PdfReader
+from pypdf.errors import PdfReadError
 
 from app.config import settings
 
@@ -46,19 +47,31 @@ def extract_text(file_path: Path) -> ExtractedText:
     suffix = file_path.suffix.lower()
 
     if suffix == ".pdf":
-        reader = PdfReader(str(file_path))
-        parts: list[str] = []
-        page_starts: list[int] = []
-        cursor = 0
-        for page in reader.pages:
-            page_starts.append(cursor)
-            page_text = page.extract_text() or ""
-            parts.append(page_text)
-            cursor += len(page_text) + len(PAGE_SEPARATOR)
+        # A file merely named *.pdf is not guaranteed to contain valid PDF
+        # bytes -- pypdf raises PdfReadError (e.g. PdfStreamError) on a
+        # truncated or non-PDF stream. Verified live: an upload of garbage
+        # bytes with a .pdf extension previously crashed with a bare 500;
+        # this converts it into the same clean 400 path as an empty document.
+        try:
+            reader = PdfReader(str(file_path))
+            parts: list[str] = []
+            page_starts: list[int] = []
+            cursor = 0
+            for page in reader.pages:
+                page_starts.append(cursor)
+                page_text = page.extract_text() or ""
+                parts.append(page_text)
+                cursor += len(page_text) + len(PAGE_SEPARATOR)
+            num_pages = len(reader.pages)
+        except PdfReadError as exc:
+            raise ValueError(
+                "Could not parse this file as a PDF. It may be corrupted, "
+                "truncated, or not actually a PDF despite the extension."
+            ) from exc
         return ExtractedText(
             text=PAGE_SEPARATOR.join(parts),
             page_starts=page_starts,
-            num_pages=len(reader.pages),
+            num_pages=num_pages,
         )
 
     if suffix in (".txt", ".md"):

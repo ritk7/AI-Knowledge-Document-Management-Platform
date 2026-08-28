@@ -85,8 +85,14 @@ class HNSWIndex:
     # ------------------------------------------------------------------
 
     def _random_level(self) -> int:
-        """Sample a level from the exponentially decaying distribution."""
-        return int(-math.log(self._rng.random()) * self._level_mult)
+        """Sample a level from the exponentially decaying distribution.
+
+        random() draws from [0.0, 1.0); the 0.0 endpoint is reachable
+        (~1-in-2^53 per call) and log(0.0) is -inf, which int() cannot convert
+        (OverflowError). Floor away from exactly 0 rather than leave a crash
+        on a once-in-astronomical-runs draw.
+        """
+        return int(-math.log(max(self._rng.random(), 1e-300)) * self._level_mult)
 
     def _ensure_capacity(self, needed: int) -> None:
         if needed <= self._vectors.shape[0]:

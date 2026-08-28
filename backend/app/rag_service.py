@@ -18,7 +18,7 @@ from __future__ import annotations
 
 import re
 
-import anthropic
+import httpx
 
 from app.config import settings
 from app.retrieval import RetrievalResult, retrieve
@@ -42,11 +42,60 @@ enough information in the provided documents to answer that." Do not guess, \
 and do not pad the reply with related-but-unasked-for information.
 4. If the excerpts partially answer the question, answer the part they cover \
 and state plainly which part is not covered.
-5. Be concise. Answer the question that was asked."""
+5. Be concise. Answer the question that was asked.
+6. If an excerpt contains a table or a list of similar-looking items (error \
+codes, IDs, dates), find the row that EXACTLY matches every term in the \
+question before answering. Adjacent rows are not the same row -- E-4021 and \
+E-4011 are different codes with different meanings even though they differ by \
+one digit. Re-read the exact row you are citing before writing your answer.
+
+Example:
+<excerpts>
+[1] (source: handbook.md, page 2)
+Remote employees must attend the Monday 9am standup.
+[2] (source: handbook.md, page 3)
+All standups are recorded and posted to the team channel within one hour.
+</excerpts>
+
+Question: Do I have to attend the Monday standup if I'm remote?
+
+Answer: Yes, remote employees are required to attend the Monday 9am \
+standup [1]. If you miss it, the recording is posted to the team channel \
+within an hour [2]."""
 
 
-def _client() -> anthropic.Anthropic:
-    return anthropic.Anthropic(api_key=settings.anthropic_api_key)
+def call_ollama(prompt: str) -> str:
+    """One-shot generation call to a local Ollama server.
+
+    Ollama's /api/generate has no separate system-role field the way the
+    Anthropic Messages API does, so the system prompt is prepended to the user
+    prompt instead. stream=False collapses the response to one JSON object
+    with the full text in "response", instead of a line-per-token stream.
+    """
+    response = httpx.post(
+        settings.ollama_url,
+        json={
+            "model": settings.ollama_model,
+            "prompt": f"{SYSTEM_PROMPT}\n\n{prompt}",
+            "stream": False,
+            # num_predict: explicit, not left to Ollama's server default
+            # (undocumented and version-dependent) -- mirrors the
+            # max_tokens=1024 the original Anthropic call used.
+            #
+            # No temperature override. Tried temperature=0.1 to reduce a
+            # measured hallucination (see README) -- it made the SAME failure
+            # WORSE (7/8 wrong at default -> 8/8 wrong, identical text every
+            # time, at 0.1). The wrong answer was apparently the model's
+            # single highest-probability completion for this input, so
+            # narrowing the sampling distribution collapsed onto it more
+            # reliably instead of occasionally escaping it. Reverted; a rule 6
+            # prompt addition was tried instead (see SYSTEM_PROMPT).
+            "options": {"num_predict": 1024},
+        },
+        timeout=120.0,
+    )
+    response.raise_for_status()
+    return response.json()["response"].strip()
 
 
 def _to_sources(result: RetrievalResult) -> list[SourceChunk]:
@@ -159,23 +208,5 @@ def generate_answer(
     ):
         return ABSTAIN_MESSAGE, sources, True, stats
 
-    response = _client().messages.create(
-        model=settings.claude_model,
-        max_tokens=1024,
-        system=SYSTEM_PROMPT,
-        messages=[{"role": "user", "content": build_prompt(question, sources)}],
-    )
-
-    if response.stop_reason == "refusal":
-        return (
-            "The model declined to answer this request.",
-            sources,
-            True,
-            stats,
-        )
-
-    answer = "".join(
-        block.text for block in response.content if block.type == "text"
-    ).strip()
-
+    answer = call_ollama(build_prompt(question, sources))
     return answer, sources, False, stats

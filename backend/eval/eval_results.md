@@ -43,3 +43,24 @@ Because they fail on *different* questions, the shipped gate abstains only when 
 The gate is a cheap pre-filter, not the only guardrail: questions that pass it still reach a model instructed to reply "I don't have enough information" when the excerpts don't cover the question. The threshold exists to avoid paying for that call when retrieval clearly found nothing.
 
 > Calibrated on only 5 unanswerable questions — enough to show the single-signal gate is unusable, not enough to fix these thresholds precisely. Re-run against your own corpus before relying on them.
+
+### Held-out check (not used to choose the threshold)
+
+The `0.15` / `0.3` threshold above was *chosen* by sweeping the 35-question set — reporting its catch rate only on that same set would be measuring whether the search found a point that fits the data, not whether it generalizes. These 10 questions were written after the threshold was fixed, never entered the sweep, and are scored here with no further tuning:
+
+**1/10 caught (10%)**
+
+| id | question | rerank | cosine | caught |
+|---|---|---:|---:|:---:|
+| hold-01 | What is the Orbital API's uptime SLA? | 0.425 | 0.450 | ❌ |
+| hold-02 | Who is ACME Robotics' Chief Security Officer? | 0.139 | 0.458 | ❌ |
+| hold-03 | How does the E-4021 error compare to a competing API's rate-limit errors? | 0.659 | 0.542 | ❌ |
+| hold-04 | When is ACME Robotics' next scheduled security audit? | 0.130 | 0.553 | ❌ |
+| hold-05 | Is remote work fully unrestricted for every role at ACME Robotics? | 0.992 | 0.652 | ❌ |
+| hold-06 | What's a good recipe for banana bread? | 0.000 | 0.051 | ✅ |
+| hold-07 | What minimum TLS version does the webhook signature require? | 0.765 | 0.611 | ❌ |
+| hold-08 | What was the incident report number for the E-4021 outage in March? | 0.005 | 0.427 | ❌ |
+| hold-09 | How many people work at ACME Robotics? | 0.971 | 0.615 | ❌ |
+| hold-10 | What is the Orbital API's pricing model? | 0.078 | 0.509 | ❌ |
+
+> n=10 is still small — this is a sanity check that the chosen operating point isn't wildly overfit to the tuning set, not a statistically powered generalization estimate.

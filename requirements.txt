@@ -27,7 +27,9 @@ rank-bm25>=0.2.2
 pypdf>=5.1
 
 # --- LLM ---
-anthropic>=0.42
+# Generation runs on a local Ollama server (http://localhost:11434) -- no SDK,
+# just plain HTTP. Install Ollama separately: https://ollama.com
+httpx>=0.27
 python-dotenv>=1.0
 
 # --- Benchmarking / evaluation ---

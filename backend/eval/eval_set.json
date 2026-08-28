@@ -287,5 +287,87 @@
       "evidence_phrases": [],
       "answerable": false
     }
+  ],
+  "holdout_unanswerable": [
+    {
+      "id": "hold-01",
+      "question": "What is the Orbital API's uptime SLA?",
+      "category": "unanswerable",
+      "document": null,
+      "evidence_phrases": [],
+      "answerable": false
+    },
+    {
+      "id": "hold-02",
+      "question": "Who is ACME Robotics' Chief Security Officer?",
+      "category": "unanswerable",
+      "document": null,
+      "evidence_phrases": [],
+      "answerable": false
+    },
+    {
+      "id": "hold-03",
+      "question": "How does the E-4021 error compare to a competing API's rate-limit errors?",
+      "category": "unanswerable",
+      "document": null,
+      "evidence_phrases": [],
+      "answerable": false
+    },
+    {
+      "id": "hold-04",
+      "question": "When is ACME Robotics' next scheduled security audit?",
+      "category": "unanswerable",
+      "document": null,
+      "evidence_phrases": [],
+      "answerable": false
+    },
+    {
+      "id": "hold-05",
+      "question": "Is remote work fully unrestricted for every role at ACME Robotics?",
+      "category": "unanswerable",
+      "document": null,
+      "evidence_phrases": [],
+      "answerable": false
+    },
+    {
+      "id": "hold-06",
+      "question": "What's a good recipe for banana bread?",
+      "category": "unanswerable",
+      "document": null,
+      "evidence_phrases": [],
+      "answerable": false
+    },
+    {
+      "id": "hold-07",
+      "question": "What minimum TLS version does the webhook signature require?",
+      "category": "unanswerable",
+      "document": null,
+      "evidence_phrases": [],
+      "answerable": false
+    },
+    {
+      "id": "hold-08",
+      "question": "What was the incident report number for the E-4021 outage in March?",
+      "category": "unanswerable",
+      "document": null,
+      "evidence_phrases": [],
+      "answerable": false
+    },
+    {
+      "id": "hold-09",
+      "question": "How many people work at ACME Robotics?",
+      "category": "unanswerable",
+      "document": null,
+      "evidence_phrases": [],
+      "answerable": false
+    },
+    {
+      "id": "hold-10",
+      "question": "What is the Orbital API's pricing model?",
+      "category": "unanswerable",
+      "document": null,
+      "evidence_phrases": [],
+      "answerable": false
+    }
   ]
 }

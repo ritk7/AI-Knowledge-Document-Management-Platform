@@ -12,8 +12,10 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
-    anthropic_api_key: str = ""
-    claude_model: str = "claude-haiku-4-5"
+    # Local generation via Ollama -- no API key, no per-token cost, no network
+    # egress. Swap in any model Ollama serves by changing OLLAMA_MODEL.
+    ollama_url: str = "http://localhost:11434/api/generate"
+    ollama_model: str = "llama3.2:3b"
     embedding_model: str = "all-MiniLM-L6-v2"
     reranker_model: str = "cross-encoder/ms-marco-MiniLM-L-6-v2"
 
@@ -44,6 +46,12 @@ class Settings(BaseSettings):
     upload_dir: str = "data/uploads"
     chroma_dir: str = "data/chroma"
     chroma_collection: str = "documents"
+    # Verified live: an upload with no cap enforced took 58 minutes to embed
+    # a 34MB file (42,857 chunks) and then still failed, because ChromaDB
+    # rejects a write batch that large. 20MB covers any realistic document
+    # for a personal knowledge base while making pathological uploads fail
+    # in milliseconds instead of the better part of an hour.
+    max_upload_mb: float = 20.0
 
     allowed_origins: str = "*"
 

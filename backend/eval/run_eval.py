@@ -289,6 +289,45 @@ def main() -> None:
     answerable_vec = [p["semantic_confidence"] for p in answerable_rows]
     unanswerable_vec = [p["semantic_confidence"] for p in unanswerable_rows]
 
+    # ---------------- Held-out validation (no tuning happens here) ------
+    #
+    # The threshold above was *chosen* by sweeping this same 35-question set --
+    # that's the confidence-vs-cosine grid search a few lines up. Reporting
+    # "catches unanswerable questions" only on the set the threshold was fit
+    # to is train/test contamination: it measures whether the search found a
+    # point that works on this data, not whether that point generalizes.
+    #
+    # This block does not search anything. It takes the threshold already
+    # chosen above and scores it, once, against 10 unanswerable questions
+    # written after the threshold was fixed and never touched by the sweep.
+    # It is a sanity check on generalization, not a replacement for a proper
+    # train/test split -- 10 questions is still a small sample. But an
+    # under-powered honest check is better than a well-powered contaminated
+    # one that silently overstates itself.
+    holdout_items = spec.get("holdout_unanswerable", [])
+    holdout_rows = []
+    for item in holdout_items:
+        result = retrieve(item["question"], top_k=settings.top_k, use_reranker=True)
+        caught = abstains(
+            {
+                "confidence": result.confidence,
+                "semantic_confidence": result.semantic_confidence,
+            },
+            settings.confidence_threshold,
+            settings.vector_confidence_threshold,
+        )
+        holdout_rows.append(
+            {
+                "id": item["id"],
+                "question": item["question"],
+                "confidence": round(result.confidence, 4),
+                "semantic_confidence": round(result.semantic_confidence, 4),
+                "caught": caught,
+            }
+        )
+
+    holdout_caught = sum(1 for r in holdout_rows if r["caught"])
+
     results["confidence"] = {
         "answerable": {
             "rerank_mean": round(mean(answerable_conf), 4),
@@ -328,6 +367,11 @@ def main() -> None:
                     settings.vector_confidence_threshold,
                 )
             ),
+        },
+        "holdout": {
+            "n": len(holdout_rows),
+            "caught": holdout_caught,
+            "rows": holdout_rows,
         },
         "per_question": per_question_conf,
     }
@@ -440,6 +484,39 @@ def write_markdown(results: dict, n_answerable: int, n_unanswerable: int) -> Non
         "thresholds precisely. Re-run against your own corpus before relying "
         "on them.",
     ]
+
+    hold = conf.get("holdout", {"n": 0, "caught": 0, "rows": []})
+    if hold["n"]:
+        lines += [
+            "",
+            "### Held-out check (not used to choose the threshold)",
+            "",
+            f"The `{cfg['t_rerank']}` / `{cfg['t_vector']}` threshold above was "
+            "*chosen* by sweeping the 35-question set — reporting its catch "
+            "rate only on that same set would be measuring whether the search "
+            "found a point that fits the data, not whether it generalizes. "
+            f"These {hold['n']} questions were written after the threshold was "
+            "fixed, never entered the sweep, and are scored here with no "
+            "further tuning:",
+            "",
+            f"**{hold['caught']}/{hold['n']} caught "
+            f"({hold['caught']/hold['n']:.0%})**",
+            "",
+            "| id | question | rerank | cosine | caught |",
+            "|---|---|---:|---:|:---:|",
+        ]
+        for r in hold["rows"]:
+            mark = "✅" if r["caught"] else "❌"
+            lines.append(
+                f"| {r['id']} | {r['question']} | {r['confidence']:.3f} | "
+                f"{r['semantic_confidence']:.3f} | {mark} |"
+            )
+        lines += [
+            "",
+            f"> n={hold['n']} is still small — this is a sanity check that the "
+            "chosen operating point isn't wildly overfit to the tuning set, "
+            "not a statistically powered generalization estimate.",
+        ]
 
     text = "\n".join(lines)
     (EVAL_DIR / "eval_results.md").write_text(text + "\n")

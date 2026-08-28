@@ -1266,7 +1266,7 @@
             "acme_employee_handbook.md_1",
             "security_incident_policy.md_0",
             "acme_employee_handbook.md_5",
-            "orbital_api_reference.md_4",
+            "security_incident_policy.md_3",
             "acme_employee_handbook.md_2"
           ],
           "scores": {
@@ -4127,6 +4127,82 @@
       "t_vector": 0.3,
       "correct_abstain": 3,
       "false_abstain": 4
+    },
+    "holdout": {
+      "n": 10,
+      "caught": 1,
+      "rows": [
+        {
+          "id": "hold-01",
+          "question": "What is the Orbital API's uptime SLA?",
+          "confidence": 0.4247,
+          "semantic_confidence": 0.4504,
+          "caught": false
+        },
+        {
+          "id": "hold-02",
+          "question": "Who is ACME Robotics' Chief Security Officer?",
+          "confidence": 0.1388,
+          "semantic_confidence": 0.458,
+          "caught": false
+        },
+        {
+          "id": "hold-03",
+          "question": "How does the E-4021 error compare to a competing API's rate-limit errors?",
+          "confidence": 0.6591,
+          "semantic_confidence": 0.5416,
+          "caught": false
+        },
+        {
+          "id": "hold-04",
+          "question": "When is ACME Robotics' next scheduled security audit?",
+          "confidence": 0.1295,
+          "semantic_confidence": 0.5527,
+          "caught": false
+        },
+        {
+          "id": "hold-05",
+          "question": "Is remote work fully unrestricted for every role at ACME Robotics?",
+          "confidence": 0.9921,
+          "semantic_confidence": 0.6522,
+          "caught": false
+        },
+        {
+          "id": "hold-06",
+          "question": "What's a good recipe for banana bread?",
+          "confidence": 0.0,
+          "semantic_confidence": 0.0514,
+          "caught": true
+        },
+        {
+          "id": "hold-07",
+          "question": "What minimum TLS version does the webhook signature require?",
+          "confidence": 0.7646,
+          "semantic_confidence": 0.611,
+          "caught": false
+        },
+        {
+          "id": "hold-08",
+          "question": "What was the incident report number for the E-4021 outage in March?",
+          "confidence": 0.0046,
+          "semantic_confidence": 0.4272,
+          "caught": false
+        },
+        {
+          "id": "hold-09",
+          "question": "How many people work at ACME Robotics?",
+          "confidence": 0.9706,
+          "semantic_confidence": 0.6154,
+          "caught": false
+        },
+        {
+          "id": "hold-10",
+          "question": "What is the Orbital API's pricing model?",
+          "confidence": 0.078,
+          "semantic_confidence": 0.5092,
+          "caught": false
+        }
+      ]
     },
     "per_question": [
       {

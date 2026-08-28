@@ -24,18 +24,49 @@ async def upload_document(file: UploadFile) -> UploadResponse:
             detail=f"Unsupported file type '{suffix}'. Accepted: PDF, TXT, MD.",
         )
 
+    # Checked before chunking/embedding, not after: with no cap, a 34MB file
+    # took 58 minutes to embed (42,857 chunks) and still failed at the final
+    # write because it exceeded ChromaDB's own batch limit. Rejecting here
+    # costs milliseconds instead of the better part of an hour.
+    contents = await file.read()
+    max_bytes = int(settings.max_upload_mb * 1024 * 1024)
+    if len(contents) > max_bytes:
+        raise HTTPException(
+            status_code=413,
+            detail=(
+                f"File is {len(contents) / 1024 / 1024:.1f}MB, which exceeds "
+                f"the {settings.max_upload_mb:.0f}MB limit."
+            ),
+        )
+
     document_id = uuid.uuid4().hex
     dest_path = settings.upload_path / f"{document_id}{suffix}"
-    dest_path.write_bytes(await file.read())
+    dest_path.write_bytes(contents)
 
+    # Everything from here through add_chunks() is one failure unit: a crash
+    # partway through -- bad PDF, an embedding-model error, a ChromaDB write
+    # failure -- must not leave the uploaded file or a partially-indexed
+    # document behind. Verified live: before this covered embed_texts() and
+    # add_chunks() too (not just process_file()), an unbatched Chroma write
+    # that exceeded its internal batch-size limit crashed with a bare 500 and
+    # left the uploaded file orphaned on disk permanently, since the cleanup
+    # path never ran for exceptions raised after process_file() returned.
     try:
         chunks, num_pages = process_file(dest_path)
-    except ValueError as exc:
+        embeddings = embed_texts([chunk.text for chunk in chunks])
+        add_chunks(document_id, file.filename, chunks, embeddings, num_pages)
+    except Exception as exc:
         dest_path.unlink(missing_ok=True)
-        raise HTTPException(status_code=400, detail=str(exc)) from exc
-
-    embeddings = embed_texts([chunk.text for chunk in chunks])
-    add_chunks(document_id, file.filename, chunks, embeddings, num_pages)
+        # add_chunks() batches its ChromaDB writes; a failure partway through
+        # can leave earlier batches already committed. delete_document() is a
+        # filter-delete that is a no-op if nothing was written, so it is safe
+        # to call unconditionally as part of cleanup.
+        delete_document(document_id)
+        if isinstance(exc, ValueError):
+            raise HTTPException(status_code=400, detail=str(exc)) from exc
+        raise HTTPException(
+            status_code=500, detail="Failed to index document."
+        ) from exc
 
     # BM25 has no incremental-update path -- IDF depends on the whole corpus,
     # so adding a document changes the scores of every existing chunk.

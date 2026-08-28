@@ -135,7 +135,10 @@ def retrieve(
 ) -> RetrievalResult:
     started = time.perf_counter()
 
-    k = top_k or settings.top_k
+    # `or` would treat top_k=0 as falsy and silently fall back to the default
+    # -- verified live: top_k=0 returned 4 sources, not 0. `is None` is the
+    # correct idiom (already used correctly for alpha, one line below).
+    k = settings.top_k if top_k is None else top_k
     alpha = settings.hybrid_alpha if alpha is None else alpha
 
     fused, n_vector, n_bm25 = hybrid_search(

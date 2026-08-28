@@ -18,8 +18,11 @@ class DocumentListResponse(BaseModel):
 
 
 class QueryRequest(BaseModel):
-    question: str
-    top_k: int | None = None
+    question: str = Field(max_length=4000)
+    # ge=1 matters: top_k=0 previously fell through Python's `0 or default`
+    # and silently returned the *default* count instead of zero or an error.
+    # Bounding it here means the bad value never reaches retrieval logic.
+    top_k: int | None = Field(default=None, ge=1, le=50)
     document_id: str | None = None
     # Hybrid weighting override from the UI slider. 1.0 = pure vector,
     # 0.0 = pure BM25. Falls back to the server default when omitted.

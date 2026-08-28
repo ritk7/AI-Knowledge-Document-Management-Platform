@@ -85,7 +85,7 @@ explicitly and **measures whether the fix worked**:
                                           │ rag_service.py              │
                                           │  confidence < threshold?    │
                                           │    ├─ yes → abstain, no LLM │
-                                          │    └─ no  → Claude Haiku    │
+                                          │    └─ no  → Ollama (local)  │
                                           │            with [n] citing  │
                                           └─────────────────────────────┘
 ```
@@ -100,8 +100,8 @@ the scores of every existing chunk and there is no correct incremental update.
 min-max normalized within the candidate set and combined by `alpha`. The top
 candidates go to the cross-encoder, which reorders them and produces a
 confidence score. Below threshold, the pipeline abstains without calling the
-LLM at all. Above it, the numbered excerpts go to Claude Haiku with an
-instruction to cite every claim.
+LLM at all. Above it, the numbered excerpts go to a local Ollama model
+(`llama3.2:3b` by default) with an instruction to cite every claim.
 
 ---
 
@@ -160,7 +160,19 @@ python3.13 -m venv venv           # any 3.10-3.13 interpreter
 source venv/bin/activate          # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 
-cp .env.example .env              # then set ANTHROPIC_API_KEY
+cp .env.example .env              # defaults work as-is; only edit for a
+                                   # different Ollama host/model
+```
+
+**Generation runs on a local [Ollama](https://ollama.com) model — no API key,
+no per-token cost, nothing leaves your machine.**
+
+```bash
+brew install ollama                # or download from ollama.com
+ollama serve                       # leave running in its own terminal
+                                    # (already running if you installed via
+                                    # the macOS/Windows app)
+ollama pull llama3.2:3b            # ~2 GB, one-time download
 ```
 
 Run the backend:
@@ -186,7 +198,7 @@ Subsequent runs use the local cache.
 ```bash
 cd backend
 python benchmarks/benchmark_ann.py   # ANN comparison (several minutes)
-python eval/run_eval.py              # retrieval eval — no API key needed
+python eval/run_eval.py              # retrieval eval — no LLM call at all
 ```
 
 > `run_eval.py` **wipes the ChromaDB collection** and re-indexes the eval corpus.
@@ -394,6 +406,43 @@ an implementation result, not an algorithmic one — the interpreter overhead on
 `_search_layer`'s inner loop dominates, and it is exactly what `hnswlib` exists
 to avoid.
 
+### Correctness, re-checked beyond the headline number
+
+recall@10 = 1.000 on one synthetic dataset is a weak claim on its own — it
+says the algorithm works on data shaped like that dataset, nothing more. Three
+follow-up checks, done specifically because that claim needed to be pushed on:
+
+- **The graph algorithm was re-derived line-by-line against Malkov & Yashunin
+  (2016)'s Algorithm 2 (`SEARCH-LAYER`) and Algorithm 4
+  (`SELECT-NEIGHBORS-HEURISTIC`).** Both match the paper — the frontier/result
+  heap bookkeeping, the "closer to the new node than to any already-selected
+  neighbour" diversity check, and the `ep ← W` multi-entry-point carry-forward
+  between layers during insertion are all correct. The one real defect found
+  was trivial: `_random_level()` calls `math.log(random())`, and `random()` can
+  return exactly `0.0` (~1-in-2⁵³), which makes `log` return `-inf` and `int()`
+  raise `OverflowError`. Fixed with a floor.
+- **Exact-duplicate vectors dropped raw-label recall@10 to 0.33** on a
+  synthetic test (50 points × 20 exact copies each) — alarming until checked
+  further: recall computed on *which of the 50 true points* a result belongs
+  to (ignoring which specific duplicate) was **1.0000**. Both HNSW and brute
+  force found the right neighborhood every time; they just returned different,
+  equally-valid members of a 20-way tie. Not a graph bug — a known sharp edge
+  of `recall@k` as a metric under duplicate data, worth knowing about, not
+  worth "fixing" in the index.
+- **The benchmark dataset is synthetic (deliberately-overlapping Gaussian
+  clusters, not naive isotropic noise — see the docstring in
+  `benchmark_ann.py`), which still isn't the same geometry as real text
+  embeddings.** Checked directly: 1,020 real, non-duplicate sentences across 6
+  topics, embedded with the actual `all-MiniLM-L6-v2` production model, held-out
+  queries never in the index. **recall@10 = 1.0000**, and nearest-neighbor
+  results were topically coherent and genuinely distinct (verified by eye, not
+  just by label match) — e.g. five different storm-related sentences at five
+  different distances for a held-out weather query. The first attempt at this
+  check used sloppily-generated sentences with heavy near-duplication and
+  scored 0.90 with tied, identical-text neighbors — the same tie-breaking
+  artifact as above, not a real finding, and rerun properly rather than
+  reported as-is.
+
 ---
 
 ## Retrieval evaluation
@@ -485,6 +534,61 @@ that API call when retrieval clearly found nothing.
 > single-signal gate is unusable, not enough to fix these thresholds precisely.
 > Re-run against your own corpus before relying on them.
 
+### Held-out check — and the honest result
+
+The table above has a methodological problem worth naming precisely, not just
+gesturing at: **the threshold was *chosen* by sweeping the same 35-question set
+that its catch rate is then reported on.** That's train/test contamination —
+it measures whether a search found a point that fits this data, not whether
+the point generalizes. The "calibrated on only 5 questions" caveat above was
+in the original version of this eval and is true, but it names the wrong
+problem (sample size); the deeper one is that the sample was reused for both
+fitting and reporting.
+
+The fix isn't a proper train/test split — 5 unanswerable questions is already
+too few to split further without both halves becoming statistical noise.
+Instead, 10 new unanswerable questions were written *after* the threshold was
+fixed, deliberately harder (they reuse in-corpus vocabulary — `"Orbital API"`,
+`"E-4021"`, `"ACME Robotics"` — to ask about facts that aren't there, which is
+exactly the failure mode that fools cosine similarity), and scored once
+against the already-chosen `0.15` / `0.30` operating point with **no further
+tuning**:
+
+**1/10 caught (10%)** — down from 3/5 (60%) on the tuning set.
+
+| id | question | rerank | cosine | caught |
+|---|---|---:|---:|:---:|
+| hold-01 | What is the Orbital API's uptime SLA? | 0.425 | 0.450 | ❌ |
+| hold-02 | Who is ACME Robotics' Chief Security Officer? | 0.139 | 0.458 | ❌ |
+| hold-03 | How does the E-4021 error compare to a competing API's rate-limit errors? | 0.659 | 0.542 | ❌ |
+| hold-04 | When is ACME Robotics' next scheduled security audit? | 0.130 | 0.553 | ❌ |
+| hold-05 | Is remote work fully unrestricted for every role at ACME Robotics? | 0.992 | 0.652 | ❌ |
+| hold-06 | What's a good recipe for banana bread? | 0.000 | 0.051 | ✅ |
+| hold-07 | What minimum TLS version does the webhook signature require? | 0.765 | 0.611 | ❌ |
+| hold-08 | What was the incident report number for the E-4021 outage in March? | 0.005 | 0.427 | ❌ |
+| hold-09 | How many people work at ACME Robotics? | 0.971 | 0.615 | ❌ |
+| hold-10 | What is the Orbital API's pricing model? | 0.078 | 0.509 | ❌ |
+
+The gap is not a fluke of small-n noise in the other direction — it is exactly
+the failure mode the calibration table above already describes, just not
+tested against it before now: cosine rates *topically-adjacent* content
+highly regardless of whether the specific fact is present (`hold-05` scores
+0.65 cosine — higher than most genuinely answerable questions — because
+"remote work" vocabulary is all over the handbook, even though *this specific
+claim* about it isn't). The only held-out question caught (`hold-06`, banana
+bread) is also the only one with zero vocabulary overlap with the corpus.
+`hold-01` through `hold-10` were constructed to be adversarial in exactly this
+way, so 10% is a worst-case number, not a representative one — but it is a
+real number from real held-out data, and it says plainly that **this
+threshold does not reliably catch unanswerable questions that use in-domain
+language.** It still reliably catches questions that are simply off-topic. If
+your use case needs the former, this threshold is not calibrated for it yet —
+that would take a genuinely larger held-out unanswerable set (dozens, not 10)
+before the numbers would mean much quantitatively.
+
+> n=10 is a sanity check on overfitting, not a statistically powered
+> generalization estimate. Full per-question data in `eval/eval_results.json`.
+
 ---
 
 ## API reference
@@ -529,7 +633,8 @@ that API call when retrieval clearly found nothing.
   ],
   "stats": {
     "alpha": 0.6, "reranked": true,
-    "confidence": 0.97, "confidence_threshold": 0.2,
+    "confidence": 0.97, "semantic_confidence": 0.71,
+    "confidence_threshold": 0.15, "vector_confidence_threshold": 0.3,
     "candidates_vector": 20, "candidates_bm25": 14, "candidates_fused": 27,
     "latency_ms": 84.3
   }
@@ -544,8 +649,8 @@ All settings live in `.env` (see `.env.example`).
 
 | Variable | Default | Meaning |
 |---|---|---|
-| `ANTHROPIC_API_KEY` | — | **Required** for `/query`. Not needed for eval. |
-| `CLAUDE_MODEL` | `claude-haiku-4-5` | Generation model (alias, not a dated ID) |
+| `OLLAMA_URL` | `http://localhost:11434/api/generate` | Local Ollama server. `ollama serve` must be running. |
+| `OLLAMA_MODEL` | `llama3.2:3b` | Generation model. Must be pulled first: `ollama pull llama3.2:3b` |
 | `EMBEDDING_MODEL` | `all-MiniLM-L6-v2` | Bi-encoder, 384-dim |
 | `RERANKER_MODEL` | `cross-encoder/ms-marco-MiniLM-L-6-v2` | Cross-encoder |
 | `CHUNK_SIZE` | `1000` | Max characters per chunk |
@@ -556,6 +661,7 @@ All settings live in `.env` (see `.env.example`).
 | `HYBRID_ALPHA` | `0.6` | Vector weight; BM25 gets `1 − α` |
 | `CONFIDENCE_THRESHOLD` | `0.15` | Cross-encoder arm of the abstention gate |
 | `VECTOR_CONFIDENCE_THRESHOLD` | `0.30` | Cosine arm — abstain needs **both** below |
+| `MAX_UPLOAD_MB` | `20` | Rejected before chunking/embedding, not after |
 | `ALLOWED_ORIGINS` | `*` | CORS origins |
 
 ---
@@ -582,3 +688,108 @@ All settings live in `.env` (see `.env.example`).
   comparisons between configurations, not as absolute quality scores.
 - **Single-turn only.** No conversation history, so follow-ups like "what about
   the second one?" won't resolve.
+- **Two input-handling bugs found by live adversarial testing, both fixed and
+  re-verified:**
+  - `top_k=0` was silently treated as "not provided" and fell back to the
+    default (`top_k or settings.top_k` — Python's `or` treats `0` as falsy).
+    Confirmed live: a request for 0 chunks returned 4. Fixed to `is None`
+    (the correct idiom, already used one line below for `alpha`) and bounded
+    `top_k` to `[1, 50]` at the API boundary so invalid values are rejected
+    with a 422 before reaching retrieval logic at all, rather than silently
+    misbehaving. `top_k=-5` previously returned 11 chunks via `list[:-5]`
+    slicing — now also rejected.
+  - A `.pdf` upload with a valid extension but corrupt/non-PDF bytes crashed
+    with a bare, unhandled `pypdf.errors.PdfReadError` → 500, and — because
+    the crash bypassed the router's cleanup path entirely — left an orphaned
+    file on disk permanently. Fixed: `PdfReadError` is now caught and
+    converted to the same clean 400 path already used for empty documents,
+    which also restores the cleanup as a side effect. Verified: re-uploading
+    the same malformed file produces a 400 with no new orphan.
+- **Prompt injection tested live against the actual model, not assumed safe.**
+  Two payloads embedded in uploaded document content (an obvious
+  `<<<SYSTEM OVERRIDE>>>` block, and a subtler one phrased as an in-document
+  "note to AI assistants") were both retrieved as legitimate excerpts and both
+  had zero effect on `llama3.2:3b`'s behavior — it answered from the real
+  content and ignored the embedded instructions in both cases. This is a
+  measured result on one small model and two payloads, not a general
+  guarantee; it is not something this project's prompt structure enforces.
+- **Concurrency tested, not assumed.** 5 simultaneous document uploads (fired
+  in parallel, not sequentially) were all indexed correctly with no ID
+  collisions, and all 5 were independently verifiable afterward via BM25
+  keyword search — no corruption from the shared in-memory BM25 rebuild under
+  concurrent writers.
+- **Local generation is weaker at instruction-following than a hosted model —
+  measured, not assumed.** Retrieval quality (the eval above) is unaffected,
+  since no LLM call happens during retrieval scoring. Citation compliance in
+  the final answer was measured separately, live, against `llama3.2:3b`: the
+  first pass (plain rules, no example) got **8/9 (89%)** on a small sample and
+  produced one answer with zero `[n]` markers. Adding a one-shot example to
+  the system prompt and setting `num_predict=1024` explicitly (previously
+  unset, silently deferring to Ollama's own default) brought a full 30-question
+  run to **25/26 (96%)** — and the one remaining "miss" turned out not to be a
+  miss at all: the model correctly declined to answer per rule 3
+  ("I don't have enough information...") and a decline has no facts to cite,
+  so the true rate on fact-bearing answers is 25/25. 3B models are not
+  perfectly reliable at this; a larger `OLLAMA_MODEL` (`llama3.1:8b`,
+  `qwen2.5:14b`) will do better if citation compliance matters more than speed.
+- **Factual correctness is a separate, more serious problem than citation
+  format, and it is not solved — measured and reduced, not fixed.** Citation
+  *format* compliance (above) asks whether a `[n]` marker is present. This asks
+  whether the claim attached to it is *true*. Testing "What does error code
+  E-4021 mean?" — a table lookup where the correct row (E-4021) sits directly
+  next to a near-identical one (E-4011), one digit apart — found `llama3.2:3b`
+  attributing E-4011's definition to E-4021 **7 out of 8 times**, confidently,
+  in properly-formatted answers with a citation marker attached to the wrong
+  claim. The correct source chunk was retrieved every single time, at 0.977
+  cross-encoder confidence — this is a pure generation failure, not a
+  retrieval failure, and it is exactly the failure mode the whole citation
+  system exists to let a user catch — except a user without the source open
+  next to them has no way to catch it, because the answer looks identical in
+  format whether it's right or wrong.
+
+  Two interventions were tried and both are now in the code, but neither
+  "fixes" this in the sense of eliminating it:
+  - `temperature=0.1` was tried first, on the theory that lower temperature
+    reduces hallucination. **It made this specific failure worse** — 8/8 wrong
+    at 0.1, with every run producing the exact same incorrect sentence
+    verbatim, versus 7/8 wrong at Ollama's default (~0.8). The wrong answer is
+    apparently the model's single highest-probability completion for this
+    input; lowering temperature narrows sampling toward that peak instead of
+    occasionally escaping it. Reverted for this reason — a plausible fix that
+    measurably backfired, kept only because it was tested, not assumed.
+  - A sixth system-prompt rule was added instead, targeted at the specific
+    mechanism observed (adjacent-row confusion in a table), instructing the
+    model to locate the exact matching row before answering. Re-tested at
+    8 runs: **3/8 wrong (37.5%)**, down from 7/8 (87.5%) — a real, measured
+    ~2.3x improvement, and the one kept. It is still wrong more than one time
+    in three on this question.
+
+  This is the honest ceiling of prompt-only mitigation on a 3B model, not a
+  bug with a code fix. If this class of error is unacceptable for your use
+  case — and for anything where a wrong answer has real consequences, it
+  should be — the actual fix is a larger model (`OLLAMA_MODEL=llama3.1:8b` or
+  larger) or a hosted API, not further prompt tuning against one adversarial
+  example. Re-run the eight-sample check in
+  [Retrieval evaluation](#retrieval-evaluation)'s methodology against whatever
+  model you configure before trusting it with anything that matters.
+- **Local generation latency varies widely and is not fast.** Measured on this
+  machine (Apple Silicon, GPU-accelerated Ollama): first call after Ollama
+  starts pays a one-time model-load cost of **~48s**; warm calls range
+  **~7-43s** depending on answer length, with no p50/p95 characterization
+  attempted — this is a personal-project observation, not a benchmark. A single
+  truncated/incomplete response was observed once in ~40 live test queries and
+  did **not** reproduce across 8 direct repeats of the identical prompt, all of
+  which returned `done_reason: stop` (Ollama's own "completed normally"
+  signal) — likely a transient hiccup (possibly a model-unload race), not a
+  deterministic bug in this code. Flagged rather than hidden: an unexplained
+  one-off is not the same as a fix.
+- **No upload size limit — found and fixed during testing, not designed in.**
+  A 34MB upload with no cap took **58 minutes** to embed (42,857 chunks) and
+  then still failed, because ChromaDB rejects a single write batch above its
+  own internal limit (5,461, observed on this version). Fixed two ways:
+  `MAX_UPLOAD_MB` (default 20) now rejects an oversized file in milliseconds,
+  before any chunking or embedding runs; and `add_chunks()` now batches its
+  ChromaDB writes, verified live with a 10,000-chunk document (still under the
+  20MB cap) that previously would have hit the same batch-size crash
+  regardless of the size limit. Neither fix alone was sufficient — a maximal
+  20MB upload can still produce more chunks than Chroma's batch cap.

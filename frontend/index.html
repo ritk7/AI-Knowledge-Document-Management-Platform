@@ -751,7 +751,7 @@ async function loadConfig() {
     $('modelInfo').innerHTML =
       `<strong>Embeddings</strong> ${escapeHtml(serverConfig.embedding_model)}<br>` +
       `<strong>Re-ranker</strong> ${escapeHtml(serverConfig.reranker_model.split('/').pop())}<br>` +
-      `<strong>Generation</strong> ${escapeHtml(serverConfig.claude_model)}`;
+      `<strong>Generation</strong> ${escapeHtml(serverConfig.generation_model)}`;
   } catch {
     /* Backend not up yet; the endpoint field lets the user point elsewhere. */
   }
