@@ -270,6 +270,40 @@ function computePCA(vectors) {
   return { mean, pc1, pc2 };
 }
 
+/* Andrew's monotone chain — used to draw each document as a region of the
+   embedding space rather than a scatter of unrelated dots. */
+function convexHull(points) {
+  if (points.length < 3) return points;
+  const pts = [...points].sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+  const cross = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
+  const lower = [];
+  for (const p of pts) {
+    while (lower.length >= 2 && cross(lower[lower.length - 2], lower[lower.length - 1], p) <= 0) lower.pop();
+    lower.push(p);
+  }
+  const upper = [];
+  for (let i = pts.length - 1; i >= 0; i--) {
+    const p = pts[i];
+    while (upper.length >= 2 && cross(upper[upper.length - 2], upper[upper.length - 1], p) <= 0) upper.pop();
+    upper.push(p);
+  }
+  lower.pop(); upper.pop();
+  return lower.concat(upper);
+}
+
+/* Expand a hull outward from its centroid so the region reads as a soft
+   territory around its points instead of clipping through them. */
+function padHull(hull, pad) {
+  if (hull.length < 3) return hull;
+  const cx = hull.reduce((s, p) => s + p[0], 0) / hull.length;
+  const cy = hull.reduce((s, p) => s + p[1], 0) / hull.length;
+  return hull.map(([x, y]) => {
+    const dx = x - cx, dy = y - cy;
+    const d = Math.hypot(dx, dy) || 1;
+    return [x + (dx / d) * pad, y + (dy / d) * pad];
+  });
+}
+
 function project(vec, pca) {
   let a = 0, b = 0;
   for (let i = 0; i < vec.length; i++) {
@@ -709,6 +743,21 @@ function drawMap(r) {
     s += `<line x1="${(W / 5) * g}" y1="0" x2="${(W / 5) * g}" y2="${H}" stroke="rgba(232,237,230,.05)"/>`;
     s += `<line x1="0" y1="${(H / 5) * g}" x2="${W}" y2="${(H / 5) * g}" stroke="rgba(232,237,230,.05)"/>`;
   }
+  // Document territories, drawn under everything else.
+  for (const doc of state.docs) {
+    const own = pts.filter((p) => p.c.docId === doc.id).map((p) => [sx(p.p[0]), sy(p.p[1])]);
+    if (own.length < 2) continue;
+    if (own.length === 2) {
+      s += `<line x1="${own[0][0]}" y1="${own[0][1]}" x2="${own[1][0]}" y2="${own[1][1]}"
+             stroke="${doc.color}" stroke-width="20" stroke-linecap="round" opacity=".07"/>`;
+      continue;
+    }
+    const hull = padHull(convexHull(own), 15);
+    s += `<polygon points="${hull.map((p) => p.join(",")).join(" ")}"
+           fill="${doc.color}" opacity=".07" stroke="${doc.color}" stroke-opacity=".18"
+           stroke-width="1" stroke-linejoin="round"/>`;
+  }
+
   // links from query to what it actually retrieved
   r.finalHits.forEach((h) => {
     const p = pts[h.i];
