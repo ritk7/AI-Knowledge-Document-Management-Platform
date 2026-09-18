@@ -9,6 +9,15 @@ Built around a four-stage retrieval pipeline — dense vector search, BM25 keywo
 search, weighted fusion, and cross-encoder re-ranking — plus a from-scratch HNSW
 index and a measured evaluation of the whole thing.
 
+### ▶ [Live demo — run the retrieval pipeline in your browser](https://ritk7.github.io/AI-Knowledge-Document-Management-Platform/)
+
+No install, no API key. The demo is a browser port of the retrieval half of this
+service: it loads the same two models as ONNX, chunks with the same recursive
+splitter, scores with the same Okapi BM25 and the same fusion arithmetic, and
+applies the same two-signal abstention gate. **Every number it shows is computed
+in the tab** — including on documents you paste in yourself. Generation is the
+one part not shipped there, because a local 3B model is a 2 GB download.
+
 ---
 
 ## Table of contents

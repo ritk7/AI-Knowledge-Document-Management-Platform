@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Retrieval Instrument — Hybrid RAG, running in your browser</title>
+<meta name="description" content="A live, in-browser hybrid retrieval pipeline: BM25 + MiniLM embeddings, min-max fusion, cross-encoder re-ranking and a two-signal abstention gate. Every number is computed in the tab.">
+<meta property="og:title" content="Retrieval Instrument — Hybrid RAG in the browser">
+<meta property="og:description" content="BM25 + dense embeddings + cross-encoder re-ranking, computed live in your browser. Not a mockup.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230A100E'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%23C6F24E' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='2' fill='%23C6F24E'/%3E%3C/svg%3E">
+</head>
+<body>
+
+<div class="bg" aria-hidden="true">
+  <div class="bg__grid"></div>
+  <div class="bg__aurora bg__aurora--a"></div>
+  <div class="bg__aurora bg__aurora--b"></div>
+  <div class="bg__aurora bg__aurora--c"></div>
+  <div class="bg__grain"></div>
+</div>
+
+<div class="shell">
+
+  <!-- ================= masthead ================= -->
+  <header class="masthead">
+    <div>
+      <div class="eyebrow">Hybrid retrieval · live in this tab</div>
+      <h1>The retrieval step is<br>where RAG actually <em>fails</em>.</h1>
+      <p class="lede">
+        So this runs it in the open. Type a question and watch two retrievers disagree,
+        get reconciled, re-ranked by a cross-encoder, and then pass or fail a confidence gate.
+        <strong>Every number below is computed in your browser</strong> — real BM25, real
+        MiniLM embeddings, real cross-encoder inference. Nothing is pre-recorded.
+      </p>
+    </div>
+    <div class="masthead__side">
+      <div class="status" id="status" data-state="">
+        <span class="status__dot"></span>
+        <span id="statusText">booting…</span>
+        <span class="status__bar"><span class="status__fill" id="statusFill"></span></span>
+      </div>
+      <a class="btn" href="https://github.com/ritk7/AI-Knowledge-Document-Management-Platform" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.4 7.4 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+        Source
+      </a>
+    </div>
+  </header>
+
+  <!-- ================= console ================= -->
+  <section class="panel console" style="margin-top:8px">
+    <div class="qbar">
+      <label class="qfield">
+        <span class="qfield__icon">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </span>
+        <input id="q" type="text" placeholder="Ask the corpus something — try an error code, or a paraphrase" autocomplete="off" spellcheck="false">
+      </label>
+      <button class="run-btn" id="run" disabled>Run pipeline</button>
+    </div>
+
+    <div class="presets">
+      <button class="chip" data-q="What does error code E-4021 mean?"><span class="chip__tag chip__tag--lex">lexical</span> error code E-4021</button>
+      <button class="chip" data-q="How much holiday do I get each year?"><span class="chip__tag chip__tag--sem">paraphrase</span> holiday allowance</button>
+      <button class="chip" data-q="Can I roll unused vacation into next year?"><span class="chip__tag chip__tag--sem">paraphrase</span> carry-over</button>
+      <button class="chip" data-q="Why does the system use two retrievers instead of one?"><span class="chip__tag chip__tag--meta">meta</span> why two retrievers</button>
+      <button class="chip" data-q="What's a good recipe for banana bread?"><span class="chip__tag chip__tag--ok">gate fires</span> off-topic</button>
+      <button class="chip" data-q="What was ACME Robotics' revenue last quarter?"><span class="chip__tag chip__tag--non">gate leaks</span> uncovered</button>
+    </div>
+
+    <div class="controls">
+      <div>
+        <div class="ctl__top">
+          <span class="sec-label">Fusion weight α</span>
+          <span class="ctl__val" id="alphaVal">0.60</span>
+        </div>
+        <input type="range" id="alpha" min="0" max="1" step="0.01" value="0.6">
+        <div class="ctl__ends"><span>keyword · BM25</span><span>semantic · vector</span></div>
+      </div>
+      <div>
+        <div class="ctl__top">
+          <span class="sec-label">Chunks to model</span>
+          <span class="ctl__val" id="topkVal">4</span>
+        </div>
+        <input type="range" id="topk" min="1" max="8" step="1" value="4">
+        <div class="ctl__ends"><span>precise</span><span>broad</span></div>
+      </div>
+      <label class="toggle">
+        <input type="checkbox" id="rerank" checked disabled>
+        <span class="toggle__track"></span>
+        <span>
+          <div class="toggle__label">Cross-encoder</div>
+          <div class="toggle__sub">re-rank shortlist</div>
+        </span>
+      </label>
+    </div>
+
+    <!-- pipeline ribbon -->
+    <div class="pipeline">
+      <div class="stage" id="stage-embed" style="--c:var(--aqua)" data-on="0">
+        <div class="stage__name"><span class="stage__led"></span>1 · Embed</div>
+        <div class="stage__val">—</div><div class="stage__sub">waiting</div>
+      </div>
+      <div class="stage" id="stage-lex" style="--c:var(--amber)" data-on="0">
+        <div class="stage__name"><span class="stage__led"></span>2 · Lexical</div>
+        <div class="stage__val">—</div><div class="stage__sub">waiting</div>
+      </div>
+      <div class="stage" id="stage-sem" style="--c:var(--aqua)" data-on="0">
+        <div class="stage__name"><span class="stage__led"></span>3 · Semantic</div>
+        <div class="stage__val">—</div><div class="stage__sub">waiting</div>
+      </div>
+      <div class="stage" id="stage-fuse" style="--c:var(--lime)" data-on="0">
+        <div class="stage__name"><span class="stage__led"></span>4 · Fuse</div>
+        <div class="stage__val">—</div><div class="stage__sub">waiting</div>
+      </div>
+      <div class="stage" id="stage-rank" style="--c:var(--gold)" data-on="0">
+        <div class="stage__name"><span class="stage__led"></span>5 · Re-rank</div>
+        <div class="stage__val">—</div><div class="stage__sub">waiting</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= results ================= -->
+  <section>
+    <div class="panel__head panel__head--stack">
+      <h2>Where each chunk came from</h2>
+      <p class="panel__note">The two retrievers are shown unmerged, exactly as they ranked things.
+      Hover any chunk to trace it through fusion into the final context window; click one to open its scores.</p>
+    </div>
+
+    <div class="results" id="results">
+      <svg id="wires" style="position:absolute;inset:0;pointer-events:none;z-index:2;width:100%"></svg>
+
+      <div class="panel col">
+        <div class="col__head">
+          <span class="col__title"><span class="col__swatch" style="background:var(--amber)"></span>BM25 · lexical</span>
+          <span class="col__meta" id="metaBm">—</span>
+        </div>
+        <div class="stack" id="colBm"><div class="empty">run a query</div></div>
+      </div>
+
+      <div class="panel col">
+        <div class="col__head">
+          <span class="col__title"><span class="col__swatch" style="background:var(--aqua)"></span>Vector · semantic</span>
+          <span class="col__meta" id="metaVec">—</span>
+        </div>
+        <div class="stack" id="colVec"><div class="empty">run a query</div></div>
+      </div>
+
+      <div class="panel col col--final">
+        <div class="col__head">
+          <span class="col__title"><span class="col__swatch" style="background:var(--lime)"></span>Final context</span>
+          <span class="col__meta" id="metaFinal">—</span>
+        </div>
+        <div class="stack" id="colFinal"><div class="empty">run a query</div></div>
+      </div>
+    </div>
+
+    <div class="verdict" id="verdict" data-mode="">
+      <div class="verdict__icon">·</div>
+      <div>
+        <div class="verdict__title">No query yet</div>
+        <div class="verdict__body">Run one to see whether the pipeline would answer or refuse.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= charts ================= -->
+  <section class="grid-2">
+    <div class="panel chartbox">
+      <div class="panel__head" style="margin-bottom:12px">
+        <h2>Embedding space</h2>
+      </div>
+      <p class="panel__note" style="margin-bottom:14px">Live PCA of the corpus vectors, recomputed whenever the corpus changes.
+      The crosshair is your query in the same space; lines run to what it actually retrieved.</p>
+      <div class="skeleton" id="mapSkeleton"><span>awaiting first query</span></div>
+      <svg id="map" viewBox="0 0 560 330" style="display:none"></svg>
+      <div class="legend" id="mapLegend"></div>
+      <div class="legend" style="margin-top:6px;opacity:.75">
+        <span>colour = document · size &amp; opacity = relevance to this query</span>
+      </div>
+    </div>
+
+    <div class="panel chartbox">
+      <div class="panel__head" style="margin-bottom:12px">
+        <h2>The abstention gate</h2>
+      </div>
+      <p class="panel__note" style="margin-bottom:14px">45 real measured points from the offline eval, plus your live query.
+      It refuses only inside the shaded corner — where <em>both</em> signals are weak.</p>
+      <svg id="gate" viewBox="0 0 560 330"></svg>
+      <div class="legend">
+        <span><i style="background:var(--lime)"></i>answerable (30)</span>
+        <span><i style="background:var(--coral)"></i>unanswerable (5)</span>
+        <span><i style="background:var(--amber)"></i>held-out (10)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= why two signals ================= -->
+  <section class="panel">
+    <div class="panel__head">
+      <h2>Why the gate needs two signals, not one</h2>
+    </div>
+    <p class="panel__note" style="max-width:82ch">
+      The cross-encoder is an excellent <em>ranker</em> and a badly calibrated <em>absolute scorer</em>: on answerable
+      questions its median is 0.977 but its 10th percentile is 0.000, because it scores correct-but-paraphrased passages
+      near zero. Cosine similarity survives paraphrase but rates topically-adjacent irrelevant chunks highly. Gating on
+      either alone is unusable. Requiring both to be low cuts false refusals from 30% to 13% — and the held-out number
+      below is the honest counterweight: on ten unanswerable questions written <em>after</em> the threshold was fixed,
+      deliberately reusing in-domain vocabulary, it caught one.
+    </p>
+    <div class="evalstrip">
+      <div class="metric"><div class="metric__k">Precision @1</div><div class="metric__v" id="mP1">—</div><div class="metric__s">hybrid + re-rank, 30 questions</div></div>
+      <div class="metric"><div class="metric__k">MRR</div><div class="metric__v" id="mMrr">—</div><div class="metric__s">mean reciprocal rank</div></div>
+      <div class="metric"><div class="metric__k">Gate · tuning set</div><div class="metric__v" id="mGate">—</div><div class="metric__s">unanswerable caught</div></div>
+      <div class="metric"><div class="metric__k">Gate · held out</div><div class="metric__v" id="mHold" style="color:var(--coral)">—</div><div class="metric__s">the number that matters</div></div>
+    </div>
+  </section>
+
+  <!-- ================= corpus ================= -->
+  <section class="panel">
+    <div class="panel__head">
+      <h2>Corpus</h2>
+      <span class="col__meta" id="corpusMeta">—</span>
+    </div>
+    <div class="corpus-grid">
+      <div>
+        <div class="sec-label" style="margin-bottom:10px">Indexed documents</div>
+        <div class="doclist" id="docList"></div>
+      </div>
+      <div>
+        <div class="sec-label" style="margin-bottom:10px">Add your own</div>
+        <input id="docTitle" class="chip" style="width:100%;border-radius:10px;padding:10px 13px;font-family:var(--font-ui);font-size:13.5px;background:var(--ink-800);color:var(--paper);margin-bottom:9px" placeholder="Document title">
+        <textarea id="docText" placeholder="Paste any text. It gets chunked with the same recursive splitter, embedded by the same model, and folded into the BM25 index — which is rebuilt from scratch, because IDF is corpus-wide."></textarea>
+        <div class="row">
+          <button class="btn btn--solid" id="addDoc">Chunk, embed &amp; index</button>
+          <span class="hint" id="addHint">runs entirely on-device</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= footer ================= -->
+  <footer class="footer">
+    <div>
+      <p><strong style="color:var(--paper)">What this is.</strong> A browser port of the retrieval half of a
+      hybrid RAG service. The Python original adds a local Ollama model for answer generation with inline citations;
+      generation is deliberately not shipped here, because a 3B model would be a 2&nbsp;GB download and retrieval is
+      the part worth watching anyway.</p>
+      <p><strong style="color:var(--paper)">What is real.</strong> The chunker, BM25 (including rank_bm25's
+      negative-IDF epsilon floor), the fusion arithmetic, the cross-encoder and the gate thresholds are ports of the
+      shipped code. Models are the int8-quantised ONNX builds of the same checkpoints, so embeddings agree with the
+      PyTorch originals to about three decimal places rather than exactly.</p>
+      <p><strong style="color:var(--paper)">What is not claimed.</strong> The eval numbers come from a 35-question
+      set over a 3-document corpus. They are meaningful as relative comparisons between configurations, not as
+      absolute quality scores — and the abstention threshold demonstrably does not generalise well.</p>
+    </div>
+    <div class="footer__links">
+      <div class="sec-label">Elsewhere</div>
+      <a href="https://github.com/ritk7/AI-Knowledge-Document-Management-Platform" target="_blank" rel="noopener">Repository &amp; README</a>
+      <a href="https://github.com/ritk7/AI-Knowledge-Document-Management-Platform/blob/main/backend/eval/eval_results.md" target="_blank" rel="noopener">Full evaluation results</a>
+      <a href="https://github.com/ritk7/AI-Knowledge-Document-Management-Platform/blob/main/backend/app/hnsw.py" target="_blank" rel="noopener">HNSW, written from scratch</a>
+      <a href="https://github.com/ritk7/AI-Knowledge-Document-Management-Platform/blob/main/backend/benchmarks/ann_benchmark_results.md" target="_blank" rel="noopener">ANN benchmark</a>
+    </div>
+  </footer>
+</div>
+
+<!-- ================= drawer ================= -->
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-label="Chunk detail">
+  <div class="drawer__head">
+    <div>
+      <div id="drawerTitle" style="font-size:16px;font-weight:600"></div>
+      <div id="drawerSub" class="hint" style="margin-top:4px"></div>
+    </div>
+    <button class="drawer__close" id="drawerClose" aria-label="Close">✕</button>
+  </div>
+  <div class="drawer__body">
+    <div class="sec-label" style="margin-bottom:12px">Scores for this chunk</div>
+    <div id="drawerScores"></div>
+    <div class="sec-label" style="margin:20px 0 10px">Chunk text · query terms highlighted</div>
+    <div class="chunktext" id="drawerText"></div>
+  </div>
+</aside>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
