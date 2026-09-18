@@ -533,7 +533,11 @@ async function runQuery(q) {
   const shortlist = fused.slice(0, CFG.rerankPool);
   if (useRerank && shortlist.length) {
     busyStage("rank", "···", `scoring ${shortlist.length} pairs`);
-    await new Promise((r) => requestAnimationFrame(r)); // let the frame paint
+    // Yield once so the busy state paints before cross-encoder inference
+    // blocks. setTimeout, not requestAnimationFrame: rAF does not fire in a
+    // hidden or unpainted tab, which left this await pending forever and hung
+    // the pipeline permanently if the visitor switched tabs mid-query.
+    await new Promise((r) => setTimeout(r, 0));
     const t3 = performance.now();
     const scores = await rerankPairs(q, shortlist.map((h) => h.chunk.text));
     rerankMs = performance.now() - t3;
