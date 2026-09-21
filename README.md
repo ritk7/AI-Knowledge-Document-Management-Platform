@@ -117,7 +117,7 @@ LLM at all. Above it, the numbered excerpts go to a local Ollama model
 ## Project layout
 
 ```
-ai-doc-platform/
+AI-Knowledge-Document-Management-Platform/
 ├── backend/
 │   ├── app/
 │   │   ├── main.py                 FastAPI app, CORS, lifespan (BM25 rebuild)
@@ -163,7 +163,7 @@ test, swap, or disable independently. `routers/` stays thin and delegates.
 `sentence-transformers` depends on it.
 
 ```bash
-cd ai-doc-platform
+cd AI-Knowledge-Document-Management-Platform
 
 python3.13 -m venv venv           # any 3.10-3.13 interpreter
 source venv/bin/activate          # Windows: venv\Scripts\activate
