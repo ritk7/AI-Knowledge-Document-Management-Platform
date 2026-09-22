@@ -147,6 +147,11 @@ AI-Knowledge-Document-Management-Platform/
 │   └── run.py
 ├── frontend/
 │   └── index.html                  Single-file UI, no build step
+├── docs/                           Browser-only demo, served via GitHub Pages
+│   ├── index.html                  Standalone port of the retrieval pipeline
+│   ├── app.js                      Chunking/BM25/fusion/abstention, ONNX models
+│   ├── styles.css
+│   └── data/                       Precomputed corpus + eval payloads
 ├── requirements.txt
 ├── .env.example
 └── README.md
@@ -154,6 +159,8 @@ AI-Knowledge-Document-Management-Platform/
 
 `app/` splits along failure boundaries: each retrieval stage is a module you can
 test, swap, or disable independently. `routers/` stays thin and delegates.
+`docs/` mirrors the retrieval half of `app/` in JavaScript so it can run
+entirely client-side — see the live demo link at the top of this file.
 
 ---
 
