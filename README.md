@@ -678,6 +678,9 @@ All settings live in `.env` (see `.env.example`).
 | `CONFIDENCE_THRESHOLD` | `0.15` | Cross-encoder arm of the abstention gate |
 | `VECTOR_CONFIDENCE_THRESHOLD` | `0.30` | Cosine arm — abstain needs **both** below |
 | `MAX_UPLOAD_MB` | `20` | Rejected before chunking/embedding, not after |
+| `UPLOAD_DIR` | `data/uploads` | Path (relative to `backend/`) where uploaded files are saved |
+| `CHROMA_DIR` | `data/chroma` | Path (relative to `backend/`) for ChromaDB's persisted index |
+| `CHROMA_COLLECTION` | `documents` | ChromaDB collection name |
 | `ALLOWED_ORIGINS` | `*` | CORS origins |
 
 ---
