@@ -26,6 +26,7 @@ one part not shipped there, because a local 3B model is a 2 GB download.
 - [Architecture](#architecture)
 - [Project layout](#project-layout)
 - [Setup](#setup)
+- [Troubleshooting](#troubleshooting)
 - [The retrieval pipeline](#the-retrieval-pipeline)
   - [1. Page-aware chunking](#1-page-aware-chunking)
   - [2. Hybrid search: why BM25 and embeddings both matter](#2-hybrid-search-why-bm25-and-embeddings-both-matter)
@@ -219,6 +220,19 @@ python eval/run_eval.py              # retrieval eval — no LLM call at all
 
 > `run_eval.py` **wipes the ChromaDB collection** and re-indexes the eval corpus.
 > Point `CHROMA_DIR` at a scratch path if you have documents you want to keep.
+
+---
+
+## Troubleshooting
+
+| Symptom | Cause | Fix |
+|---|---|---|
+| `POST /query` hangs or times out | `ollama serve` isn't running, or `OLLAMA_URL` doesn't match its port | Start `ollama serve` in its own terminal and confirm `curl http://localhost:11434` responds |
+| `model 'llama3.2:3b' not found` | The model was never pulled | `ollama pull llama3.2:3b` (or whichever `OLLAMA_MODEL` you set) |
+| First query is very slow, then fast | The bi-encoder and cross-encoder (~90 MB each) download from HuggingFace on first use | Expected one-time cost; subsequent runs use the local cache |
+| Retrieval quality drops after changing `EMBEDDING_MODEL` | Chunks already in ChromaDB were embedded with the old model; dimensions or semantics no longer match new queries | Re-upload documents (or clear `CHROMA_DIR`) after changing the embedding model |
+| `run_eval.py` deleted my uploaded documents | It wipes the ChromaDB collection before re-indexing the eval corpus, by design | Point `CHROMA_DIR` at a scratch path before running it if you have documents to keep |
+| `Address already in use` on `python run.py` or the frontend server | Another process is bound to port 8000 or 5500 | Stop the other process, or run `uvicorn app.main:app --port <other>` / `python -m http.server <other>` |
 
 ---
 
