@@ -167,8 +167,14 @@ entirely client-side — see the live demo link at the top of this file.
 
 ## Setup
 
-**Python 3.10–3.13 is required.** Python 3.14 has no PyTorch wheels yet, and
-`sentence-transformers` depends on it.
+**Requirements at a glance:**
+
+- Python 3.10–3.13 (3.14 has no PyTorch wheels yet, and `sentence-transformers`
+  depends on it)
+- ~2.5 GB free disk and a one-time internet connection for downloads: the
+  `llama3.2:3b` Ollama model (~2 GB) plus the bi-encoder and cross-encoder
+  (~90 MB each, cached after first use)
+- [Ollama](https://ollama.com) installed and running locally for generation
 
 ```bash
 cd AI-Knowledge-Document-Management-Platform

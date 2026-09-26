@@ -5,6 +5,8 @@ follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Documentation
 
+- Added a "Requirements at a glance" summary (disk space, downloads, Python
+  version) at the top of the Setup section.
 - Added a Troubleshooting section covering common setup issues.
 - Documented previously-missing storage config variables in the
   Configuration table.
