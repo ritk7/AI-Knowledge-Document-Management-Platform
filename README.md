@@ -638,6 +638,28 @@ before the numbers would mean much quantitatively.
 | `GET` | `/config` | Retrieval defaults (used to initialise the UI) |
 | `GET` | `/health` | Health check |
 
+**`POST /documents/upload`** — `multipart/form-data`, field `file` (PDF/TXT/MD, ≤ `MAX_UPLOAD_MB`)
+
+```jsonc
+{
+  "document": {
+    "document_id": "3f9a1c2e...",
+    "filename": "orbital_api_reference.md",
+    "num_chunks": 42,
+    "num_pages": 6
+  },
+  "message": "Indexed 42 chunks across 6 page(s)."
+}
+```
+
+Rejected with `400` for an unsupported file type, `413` for exceeding
+`MAX_UPLOAD_MB`, `500` if chunking/embedding/indexing fails partway through
+(the uploaded file and any partial index entries are cleaned up either way).
+
+**`GET /documents`** → `{"documents": [<same shape as "document" above>, ...]}`
+
+**`DELETE /documents/{document_id}`** → `{"message": "Document <id> deleted"}`
+
 **`POST /query`**
 
 ```jsonc
