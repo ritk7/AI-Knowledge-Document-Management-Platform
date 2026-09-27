@@ -5,6 +5,9 @@ follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Documentation
 
+- Documented example responses for `/documents/upload`, `GET /documents`,
+  and `DELETE /documents/{id}` in the API reference (previously only
+  `/query` had one).
 - Added a "Requirements at a glance" summary (disk space, downloads, Python
   version) at the top of the Setup section.
 - Added a Troubleshooting section covering common setup issues.
