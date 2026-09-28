@@ -138,12 +138,14 @@ AI-Knowledge-Document-Management-Platform/
 │   ├── benchmarks/
 │   │   ├── benchmark_ann.py        HNSW vs ChromaDB vs brute force
 │   │   ├── ann_benchmark.png       Generated chart
-│   │   └── ann_benchmark_results.md
+│   │   ├── ann_benchmark_results.md
+│   │   └── ann_benchmark_results.json
 │   ├── eval/
 │   │   ├── corpus/                 3 synthetic documents
 │   │   ├── eval_set.json           35 questions (30 answerable, 5 not)
 │   │   ├── run_eval.py             precision@k / recall@k / MRR
-│   │   └── eval_results.md         Generated results
+│   │   ├── eval_results.md         Generated results
+│   │   └── eval_results.json       Same results, per-question detail
 │   ├── data/                       uploads/ + chroma/ (gitignored)
 │   └── run.py
 ├── frontend/
