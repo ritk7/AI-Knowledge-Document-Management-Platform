@@ -701,6 +701,31 @@ Rejected with `400` for an unsupported file type, `413` for exceeding
 }
 ```
 
+**`GET /config`**
+
+```jsonc
+{
+  "hybrid_alpha": 0.6,
+  "top_k": 4,
+  "confidence_threshold": 0.15,
+  "vector_confidence_threshold": 0.3,
+  "candidate_pool": 20,
+  "rerank_pool": 10,
+  "embedding_model": "all-MiniLM-L6-v2",
+  "reranker_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+  "generation_model": "llama3.2:3b (ollama, local)"
+}
+```
+
+Used by the frontend to initialise the α slider and other controls from the
+server's actual `.env` values, rather than hard-coding defaults twice.
+
+**`GET /health`**
+
+```jsonc
+{ "status": "ok" }
+```
+
 ---
 
 ## Configuration

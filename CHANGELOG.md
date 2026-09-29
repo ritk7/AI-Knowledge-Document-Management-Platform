@@ -5,6 +5,8 @@ follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Documentation
 
+- Documented example responses for `GET /config` and `GET /health` in the
+  API reference, completing coverage for all six endpoints.
 - Documented example responses for `/documents/upload`, `GET /documents`,
   and `DELETE /documents/{id}` in the API reference (previously only
   `/query` had one).
