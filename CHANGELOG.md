@@ -5,6 +5,8 @@ follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Documentation
 
+- Added Linux and Windows install commands for Ollama in the Setup section
+  (previously only `brew install ollama` for macOS was shown).
 - Documented example responses for `GET /config` and `GET /health` in the
   API reference, completing coverage for all six endpoints.
 - Documented example responses for `/documents/upload`, `GET /documents`,

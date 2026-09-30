@@ -193,7 +193,10 @@ cp .env.example .env              # defaults work as-is; only edit for a
 no per-token cost, nothing leaves your machine.**
 
 ```bash
-brew install ollama                # or download from ollama.com
+brew install ollama                # macOS
+curl -fsSL https://ollama.com/install.sh | sh   # Linux
+# Windows: download the installer from https://ollama.com/download
+
 ollama serve                       # leave running in its own terminal
                                     # (already running if you installed via
                                     # the macOS/Windows app)
