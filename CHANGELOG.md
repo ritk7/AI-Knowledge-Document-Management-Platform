@@ -5,6 +5,9 @@ follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Documentation
 
+- Added runnable `curl` examples for `POST /documents/upload` and
+  `POST /query` to the API reference (previously only JSON schemas were
+  shown, with no example of actually calling the endpoints).
 - Added Linux and Windows install commands for Ollama in the Setup section
   (previously only `brew install ollama` for macOS was shown).
 - Documented example responses for `GET /config` and `GET /health` in the
