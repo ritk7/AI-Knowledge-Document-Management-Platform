@@ -643,6 +643,17 @@ before the numbers would mean much quantitatively.
 | `GET` | `/config` | Retrieval defaults (used to initialise the UI) |
 | `GET` | `/health` | Health check |
 
+**Try it with `curl`** (assumes `python run.py` is running on `:8000`):
+
+```bash
+curl -X POST http://localhost:8000/documents/upload \
+  -F "file=@orbital_api_reference.md"
+
+curl -X POST http://localhost:8000/query \
+  -H "Content-Type: application/json" \
+  -d '{"question": "What does error code E-4021 mean?"}'
+```
+
 **`POST /documents/upload`** — `multipart/form-data`, field `file` (PDF/TXT/MD, ≤ `MAX_UPLOAD_MB`)
 
 ```jsonc
