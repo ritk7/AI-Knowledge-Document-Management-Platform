@@ -5,6 +5,8 @@ follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Documentation
 
+- Added Python version, backend, and local-generation badges under the
+  README title for an at-a-glance summary of the stack.
 - Added runnable `curl` examples for `POST /documents/upload` and
   `POST /query` to the API reference (previously only JSON schemas were
   shown, with no example of actually calling the endpoints).
