@@ -1,5 +1,9 @@
 # AI Knowledge & Document Management Platform
 
+![Python 3.10–3.13](https://img.shields.io/badge/python-3.10%E2%80%933.13-blue)
+![Backend](https://img.shields.io/badge/backend-FastAPI-009688)
+![Generation](https://img.shields.io/badge/generation-Ollama%20(local)-6f42c1)
+
 A retrieval-augmented Q&A platform over your own documents. Upload PDFs or text,
 ask questions, and get answers that are **grounded in retrieved passages, cited
 inline, and refused outright when retrieval isn't confident enough to support an
