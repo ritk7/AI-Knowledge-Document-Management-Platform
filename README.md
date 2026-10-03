@@ -899,3 +899,10 @@ All settings live in `.env` (see `.env.example`).
   20MB cap) that previously would have hit the same batch-size crash
   regardless of the size limit. Neither fix alone was sufficient — a maximal
   20MB upload can still produce more chunks than Chroma's batch cap.
+- **No automated test suite.** `benchmarks/benchmark_ann.py` and
+  `eval/run_eval.py` give repeatable, numeric checks of the ANN index and the
+  retrieval pipeline, but there is no pytest suite exercising the FastAPI
+  routes, chunking, or the abstention gate, and nothing runs in CI. The bug
+  fixes and adversarial-testing results documented throughout this file were
+  found by one-off manual and scripted checks, not a regression suite that
+  would catch a future reintroduction of the same bug.
