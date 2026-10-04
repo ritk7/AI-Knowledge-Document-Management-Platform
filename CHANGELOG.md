@@ -5,6 +5,10 @@ follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Documentation
 
+- Added runnable `curl` examples for `GET /documents` and
+  `DELETE /documents/{id}` to the API reference, completing `curl` coverage
+  for all document-management endpoints (previously only upload and query
+  had one).
 - Added Python version, backend, and local-generation badges under the
   README title for an at-a-glance summary of the stack.
 - Added runnable `curl` examples for `POST /documents/upload` and

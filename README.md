@@ -656,6 +656,10 @@ curl -X POST http://localhost:8000/documents/upload \
 curl -X POST http://localhost:8000/query \
   -H "Content-Type: application/json" \
   -d '{"question": "What does error code E-4021 mean?"}'
+
+curl http://localhost:8000/documents
+
+curl -X DELETE http://localhost:8000/documents/3f9a1c2e...
 ```
 
 **`POST /documents/upload`** — `multipart/form-data`, field `file` (PDF/TXT/MD, ≤ `MAX_UPLOAD_MB`)
