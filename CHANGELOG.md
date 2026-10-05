@@ -5,6 +5,9 @@ follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Documentation
 
+- Documented that `DELETE /documents/{document_id}` is a no-op filter-delete
+  for an unknown ID — it returns `200` rather than `404`, so callers should
+  not read a `200` as confirmation the ID ever existed.
 - Added runnable `curl` examples for `GET /documents` and
   `DELETE /documents/{id}` to the API reference, completing `curl` coverage
   for all document-management endpoints (previously only upload and query

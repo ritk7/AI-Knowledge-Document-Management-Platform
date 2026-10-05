@@ -684,6 +684,12 @@ Rejected with `400` for an unsupported file type, `413` for exceeding
 
 **`DELETE /documents/{document_id}`** → `{"message": "Document <id> deleted"}`
 
+Idempotent by design, not by accident: deleting an unknown `document_id` is a
+no-op filter-delete, so it still returns `200` with the same message rather
+than a `404`. Safe to retry a delete without checking whether it already
+succeeded; just don't mistake the `200` for confirmation that the ID ever
+existed.
+
 **`POST /query`**
 
 ```jsonc
