@@ -221,6 +221,10 @@ Open the UI by opening `frontend/index.html` directly in a browser
 cd frontend && python -m http.server 5500
 ```
 
+The UI defaults to an API base URL of `http://localhost:8000`. If the
+backend runs on a different host or port, edit the "API base" field in the
+UI itself — no rebuild needed, since `frontend/index.html` has no build step.
+
 The first query downloads two models from HuggingFace (~90 MB each): the
 `all-MiniLM-L6-v2` bi-encoder and the `ms-marco-MiniLM-L-6-v2` cross-encoder.
 Subsequent runs use the local cache.
