@@ -30,7 +30,7 @@ Because they fail on *different* questions, the shipped gate abstains only when 
 
 | t_rerank | t_cosine | Catches unanswerable | Wrongly refuses answerable |
 |---------:|---------:|---------------------:|---------------------------:|
-| 0.02 | 0.30 ✅ | 3/5 (60%) | 4/30 (13%) |
+| 0.15 | 0.30 ✅ | 3/5 (60%) | 4/30 (13%) |
 | 0.02 | rerank only | 3/5 (60%) | 8/30 (27%) |
 | 0.05 | rerank only | 4/5 (80%) | 9/30 (30%) |
 | 0.10 | rerank only | 4/5 (80%) | 9/30 (30%) |
